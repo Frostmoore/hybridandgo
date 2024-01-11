@@ -43,6 +43,29 @@ if (!isset($_SESSION['loggedin'])) {
         <div class="row">
             <div class="col">
                 <form action="res/nuovagenzia.php" method="POST" enctype="multipart/form-data">
+                    <div class="step1">
+                        <div class="form-group">
+                            <label for="nome_app">Nome Applicazione</label>
+                            <input type="text" class="form-control" id="nome_app" name="nome_app" placeholder="Inserisci il Nome della nuova Applicazione">
+                            <small id="nomeapphelp" class="form-text text-muted">Questo sarà il nome utilizzato per l'applicazione</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="nome_agenzia">Nome Agenzia</label>
+                            <input type="text" class="form-control" id="nome_agenzia" name="nome_agenzia" placeholder="Inserisci il Nome della nuova Agenzia">
+                            <small id="nomeagenziahelp" class="form-text text-muted">Questo sarà il nome utilizzato per l'Agenzia</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="logo_agenzia" class="form-label">Logo dell'Agenzia</label>
+                            <input class="form-control" type="file" id="logo_agenzia" name="logo_agenzia">
+                            <small id="logo_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione 1024x1024x7MB.</small>
+                        </div>
+                        </br>
+                        <div class="mb-3">
+                            <label for="cover_agenzia" class="form-label">Cover dell'Agenzia</label>
+                            <input class="form-control" type="file" id="cover_agenzia" name="cover_agenzia">
+                            <small id="cover_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione massima 2400x1256x14MB.</small>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="nome">Nome Agenzia</label>
                         <input type="text" class="form-control" id="nome" name="nome" placeholder="Inserisci il Nome della nuova Agenzia">
