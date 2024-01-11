@@ -304,3 +304,31 @@ body.loggedin {
     transform: translatex(-50%);
     left: 50%;
 }
+
+.form-group {
+    margin-top: 20px;
+}
+
+.mb-3 {
+    margin-top: 20px;
+}
+
+.bottone_next {
+    width: 100%;
+    margin-top: 20px;
+    background-color: rgb(27, 27, 111);
+    color: white;
+    padding: 15px;
+    border: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 8px;
+}
+
+.bottone_next:hover {
+    background-color: #2868c7;
+}
+
+.a_hidden {
+    display: none;
+}
