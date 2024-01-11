@@ -70,7 +70,10 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="text" class="form-control" id="colori" name="colori" placeholder="Inserisci i Colori principali dell'app">
                             <small id="nomeagenziahelp" class="form-text text-muted">Inserisci tre colori, separati da un |, nel formato 0xffffffff</small>
                         </div>
-                        <button class="bottone_next">AVANTI</button>
+                        <div class="rowbottone">
+                            <button class="bottone_previous" id="indietro1">INDIETRO</button>
+                            <button class="bottone_next" id="bottone1">AVANTI</button>
+                        </div>
                     </div>
                     <div class="step2 a_hidden" id="step2">
                         <h2>Step n. 2: Social</h2>
@@ -99,7 +102,10 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="text" class="form-control" id="sito_agenzia" name="sito_agenzia" placeholder="Inserisci l'indirizzo Sito Web dell'Agenzia">
                             <small id="sito_agenziahelp" class="form-text text-muted">Questo sarà l'indirizzo Sito Web del tasto sotto il logo</small>
                         </div>
-                        <button class="bottone_next">AVANTI</button>
+                        <div class="rowbottone">
+                            <button class="bottone_previous" id="indietro2">INDIETRO</button>
+                            <button class="bottone_next" id="bottone2">AVANTI</button>
+                        </div>
                     </div>
                     <div class="step3 a_hidden" id="step3">
                         <h2>Step n. 3: Blocco Info</h2>
@@ -158,7 +164,10 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="text" class="form-control" id="info_sito_sedi" name="info_sito_sedi" placeholder="Inserisci l'indirizzo web delle varie sedi">
                             <small id="info_sito_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
                         </div>
-                        <button class="bottone_next">AVANTI</button>
+                        <div class="rowbottone">
+                            <button class="bottone_previous" id="indietro3">INDIETRO</button>
+                            <button class="bottone_next" id="bottone3">AVANTI</button>
+                        </div>
                     </div>
                     <div class="step4 a_hidden" id="step4">
                         <h2>Step n. 4: Area di Notifica</h2>
@@ -177,7 +186,10 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="text" class="form-control" id="notifica_link" name="notifica_link" placeholder="Link della notifica">
                             <small id="notifica_linkhelp" class="form-text text-muted">Sarà il link del tasto "Scopri di più"</small>
                         </div>
-                        <button class="bottone_next">AVANTI</button>
+                        <div class="rowbottone">
+                            <button class="bottone_previous" id="indietro4">INDIETRO</button>
+                            <button class="bottone_next" id="bottone4">AVANTI</button>
+                        </div>
                     </div>
                     <div class="step5 a_hidden" id="step5">
                         <h2>Step n. 5: Sezione Contatti e Numeri Utili</h2>
@@ -211,7 +223,10 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="text" class="form-control" id="numeri_utili_link" name="numeri_utili_link" placeholder="Link pulsanti numeri utili">
                             <small id="numeri_utili_linkhelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio. I numeri dovranno essere espressi nel formato internazionale (+393333333333)</small>
                         </div>
-                        <button class="bottone_next">AVANTI</button>
+                        <div class="rowbottone">
+                            <button class="bottone_previous" id="indietro5">INDIETRO</button>
+                            <button class="bottone_next" id="bottone5">AVANTI</button>
+                        </div>
                     </div>
                     <div class="step6 a_hidden" id="step6">
                         <h2>Step n. 6: Sezione "Denuncia un Sinistro"</h2>
@@ -230,7 +245,10 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="textarea" class="form-control" id="denuncia_testo" name="denuncia_testo" placeholder="Testo Sezione 'Denuncia un Sinistro'">
                             <small id="denuncia_testohelp" class="form-text text-muted">Il testo apparirà sotto il titolo</small>
                         </div>
-                        <button class="bottone_next">AVANTI</button>
+                        <div class="rowbottone">
+                            <button class="bottone_previous" id="indietro6">INDIETRO</button>
+                            <button class="bottone_next" id="bottone6">AVANTI</button>
+                        </div>
                     </div>
                     <div class="step7 a_hidden" id="step7">
                         <h2>Step n. 7: Sezione Contatti Rapidi</h2>
@@ -249,7 +267,10 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="text" class="form-control" id="quick_email" name="quick_email" placeholder="E-mail dell'indirizzo rapido">
                             <small id="quick_emailhelp" class="form-text text-muted"> </small>
                         </div>
-                        <button class="bottone_next">AVANTI</button>
+                        <div class="rowbottone">
+                            <button class="bottone_previous" id="indietro7">INDIETRO</button>
+                            <button class="bottone_next" id="bottone7">AVANTI</button>
+                        </div>
                     </div>
                     <div class="step8 a_hidden" id="step8">
                         <h2>Ultimo Sep: Attivare l'agenzia</h2>
@@ -257,6 +278,10 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="checkbox" id="attiva" name="attiva" value="1">
                             <label for="attiva">Attivare l'Agenzia?</label><br>
                             <small id="attivahelp" class="form-text text-muted">Potrai disabilitarla in qualunque momento</small>
+                        </div>
+                        <div class="rowbottone">
+                            <button class="bottone_previous" id="indietro8">INDIETRO</button>
+                            <button class="bottone_next" id="bottone8">CREA AGENZIA</button>
                         </div>
                     </div>
                     <!--

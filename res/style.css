@@ -314,9 +314,9 @@ body.loggedin {
 }
 
 .bottone_next {
-    width: 100%;
+    width: 30%;
     margin-top: 20px;
-    background-color: rgb(27, 27, 111);
+    background-color: rgb(41, 111, 27);
     color: white;
     padding: 15px;
     border: none;
@@ -326,9 +326,37 @@ body.loggedin {
 }
 
 .bottone_next:hover {
-    background-color: #2868c7;
+    background-color: #2dc728;
+}
+
+.bottone_previous {
+    width: 30%;
+    margin-top: 20px;
+    background-color: rgb(111, 105, 27);
+    color: white;
+    padding: 15px;
+    border: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 8px;
+}
+
+.bottone_previous:hover {
+    background-color: #bcc728;
 }
 
 .a_hidden {
     display: none;
+}
+
+small {
+    font-style: italic;
+}
+
+.rowbottone {
+    display: block;
+    /*width: 100%;*/
+    position: relative;
+    transform: translateX(-50%);
+    left: 50%;
 }
