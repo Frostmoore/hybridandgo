@@ -129,7 +129,7 @@ if (!isset($_SESSION['loggedin'])) {
                         </div>
                         <div class="form-group">
                             <label for="info_orari_sedi">Orari di apertura delle varie Sedi</label>
-                            <input type="text" class="form-control" id="info_orari_sedi" name="info_orari_sedi" placeholder="Inserisci gli orari di apertura delle varie sedi dell'Agenzia">
+                            <input type="textarea" class="form-control" id="info_orari_sedi" name="info_orari_sedi" placeholder="Inserisci gli orari di apertura delle varie sedi dell'Agenzia">
                             <small id="info_orari_sedihelp" class="form-text text-muted">Separa gli orari usando un |, se vuoi andare a capo potrai usare la shortcut "\n"</small>
                         </div>
                         <div class="form-group">
@@ -141,6 +141,116 @@ if (!isset($_SESSION['loggedin'])) {
                             <label for="info_telefono_sedi">Numeri di Telefono delle varie sedi</label>
                             <input type="text" class="form-control" id="info_telefono_sedi" name="info_telefono_sedi" placeholder="Inserisci il numero di telefono delle varie sedi">
                             <small id="info_telefono_sedihelp" class="form-text text-muted">Scrivilo nel formato internazionale (+393333333333). Separa i numeri usando un |</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="info_email_sedi">Indirizzi e-mail delle varie sedi</label>
+                            <input type="text" class="form-control" id="info_email_sedi" name="info_email_sedi" placeholder="Inserisci l'indirizzo e-mail delle varie sedi">
+                            <small id="info_email_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="info_mappa_sedi">Indirizzo Google Places delle varie sedi</label>
+                            <input type="text" class="form-control" id="info_mappa_sedi" name="info_mappa_sedi" placeholder="Inserisci l'indirizzo Google Places delle varie sedi">
+                            <small id="info_mappa_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="info_sito_sedi">Indirizzo web delle varie sedi</label>
+                            <input type="text" class="form-control" id="info_sito_sedi" name="info_sito_sedi" placeholder="Inserisci l'indirizzo web delle varie sedi">
+                            <small id="info_sito_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
+                        </div>
+                    </div>
+                    <div class="step4">
+                        <h2>Step n. 4: Area di Notifica</h2>
+                        <div class="form-group">
+                            <label for="notifica_titolo">Inserisci il titolo dell'area di notifica</label>
+                            <input type="text" class="form-control" id="notifica_titolo" name="notifica_titolo" placeholder="Titolo della notifica (ad es. 'ATTENZIONE!'">
+                            <small id="notifica_titolohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="notifica_testo">Inserisci il testo della notifica</label>
+                            <input type="textarea" class="form-control" id="notifica_testo" name="notifica_testo" placeholder="Testo della notifica">
+                            <small id="notifica_testohelp" class="form-text text-muted"> </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="notifica_link">Inserisci il link della notifica</label>
+                            <input type="text" class="form-control" id="notifica_link" name="notifica_link" placeholder="Link della notifica">
+                            <small id="notifica_linkhelp" class="form-text text-muted">Sarà il link del tasto "Scopri di più"</small>
+                        </div>
+                    </div>
+                    <div class="step5">
+                        <h2>Step n. 5: Sezione Contatti e Numeri Utili</h2>
+                        <div class="mb-3">
+                            <label for="contatti_immagine" class="form-label">Immagine di fondo della sezione Contatti</label>
+                            <input class="form-control" type="file" id="contatti_immagine" name="contatti_immagine">
+                            <small id="contatti_immaginehelp" class="form-text text-muted">Carica un solo file .png delle dimensioni che preferisci, ma con un rapporto di 6:1.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="contatti_titolo">Inserisci il titolo della sezione Contatti</label>
+                            <input type="text" class="form-control" id="contatti_titolo" name="contatti_titolo" placeholder="Titolo Sez. Contatti">
+                            <small id="contatti_titolohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="contatti_testo">Inserisci il testo da riportare nella sezione Contatti</label>
+                            <input type="textarea" class="form-control" id="contatti_testo" name="contatti_testo" placeholder="Testo Sezione Contatti">
+                            <small id="contatti_testohelp" class="form-text text-muted">Puoi andare a capo utilizzando la shortcut "\n"</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeri_utili_labels">Inserisci i testi da riportare sui pulsanti dei numeri utili</label>
+                            <input type="text" class="form-control" id="numeri_utili_labels" name="numeri_utili_labels" placeholder="Testi pulsanti numeri utili">
+                            <small id="numeri_utili_labelshelp" class="form-text text-muted">Inserisci l'etichetta di ciascun pulsante, separandole con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeri_utili_colori">Inserisci i colori di ciascun tasto</label>
+                            <input type="text" class="form-control" id="numeri_utili_colori" name="numeri_utili_colori" placeholder="Colori pulsanti numeri utili">
+                            <small id="numeri_utili_colorihelp" class="form-text text-muted">Inserisci i colori di ciascun pulsante, separandoli con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio. I colori dovranno essere espressi nel formato 0xffffffff</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeri_utili_link">Inserisci i link di ciascun tasto</label>
+                            <input type="text" class="form-control" id="numeri_utili_link" name="numeri_utili_link" placeholder="Link pulsanti numeri utili">
+                            <small id="numeri_utili_linkhelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio. I numeri dovranno essere espressi nel formato internazionale (+393333333333)</small>
+                        </div>
+                    </div>
+                    <div class="step6">
+                        <h2>Step n. 6: Sezione "Denuncia un Sinistro"</h2>
+                        <div class="mb-3">
+                            <label for="denuncia_immagine" class="form-label">Immagine di fondo della sezione "Denuncia un Sinistro"</label>
+                            <input class="form-control" type="file" id="denuncia_immagine" name="denuncia_immagine">
+                            <small id="denuncia_immaginehelp" class="form-text text-muted">Carica un solo file .png delle dimensioni che preferisci, ma con un rapporto di 6:1.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="denuncia_titolo">Inserisci il titolo della sezione "Denuncia un Sinistro"</label>
+                            <input type="text" class="form-control" id="denuncia_titolo" name="denuncia_titolo" placeholder="Titolo Sezione">
+                            <small id="denuncia_titolohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="denuncia_testo">Inserisci il testo della sezione "Denuncia un Sinistro"</label>
+                            <input type="textarea" class="form-control" id="denuncia_testo" name="denuncia_testo" placeholder="Testo Sezione 'Denuncia un Sinistro'">
+                            <small id="denuncia_testohelp" class="form-text text-muted">Il testo apparirà sotto il titolo</small>
+                        </div>
+                    </div>
+                    <div class="step7">
+                        <h2>Step n. 7: Sezione Contatti Rapidi</h2>
+                        <div class="form-group">
+                            <label for="quick_telefono">Inserisci il numero di telefono per le chiamate rapide</label>
+                            <input type="text" class="form-control" id="quick_telefono" name="quick_telefono" placeholder="Numero di Telefono per chiamate rapide">
+                            <small id="quick_telefonohelp" class="form-text text-muted"> </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="quick_whatsapp">Inserisci il link WhatsApp per le chiamate rapide</label>
+                            <input type="text" class="form-control" id="quick_whatsapp" name="quick_whatsapp" placeholder="Ad es. https://call.whatsapp.com/voice/fJdossDZ45dx2">
+                            <small id="quick_whatsapphelp" class="form-text text-muted">Inserisci il "Call Link" di WhatsApp Business</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="quick_email">Inserisci l'email per le chiamate rapide</label>
+                            <input type="text" class="form-control" id="quick_email" name="quick_email" placeholder="E-mail dell'indirizzo rapido">
+                            <small id="quick_emailhelp" class="form-text text-muted"> </small>
+                        </div>
+                    </div>
+                    <div class="step8">
+                        <h2>Ultimo Sep: Attivare l'agenzia</h2>
+                        <div class="form-group">
+                            <input type="checkbox" id="attiva" name="attiva" value="1">
+                            <label for="attiva">Attivare l'Agenzia?</label><br>
+                            <small id="attivahelp" class="form-text text-muted">Potrai disabilitarla in qualunque momento</small>
                         </div>
                     </div>
                     <div class="form-group">
