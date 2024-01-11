@@ -44,6 +44,7 @@ if (!isset($_SESSION['loggedin'])) {
             <div class="col">
                 <form action="res/nuovagenzia.php" method="POST" enctype="multipart/form-data">
                     <div class="step1">
+                        <h2>Step n. 1: Generali</h2>
                         <div class="form-group">
                             <label for="nome_app">Nome Applicazione</label>
                             <input type="text" class="form-control" id="nome_app" name="nome_app" placeholder="Inserisci il Nome della nuova Applicazione">
@@ -64,6 +65,82 @@ if (!isset($_SESSION['loggedin'])) {
                             <label for="cover_agenzia" class="form-label">Cover dell'Agenzia</label>
                             <input class="form-control" type="file" id="cover_agenzia" name="cover_agenzia">
                             <small id="cover_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione massima 2400x1256x14MB.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="colori">Colori</label>
+                            <input type="text" class="form-control" id="colori" name="colori" placeholder="Inserisci i Colori principali dell'app">
+                            <small id="nomeagenziahelp" class="form-text text-muted">Inserisci tre colori, separati da un |, nel formato 0xffffffff</small>
+                        </div>
+                    </div>
+                    <div class="step2">
+                        <h2>Step n. 2: Social</h2>
+                        <div class="form-group">
+                            <label for="facebook_agenzia">Indirizzo Facebook</label>
+                            <input type="text" class="form-control" id="facebook_agenzia" name="facebook_agenzia" placeholder="Inserisci l'indirizzo Facebook dell'Agenzia">
+                            <small id="facebook_agenziahelp" class="form-text text-muted">Questo sarà l'indirizzo Facebook del tasto sotto il logo</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="instagram_agenzia">Indirizzo Instagram</label>
+                            <input type="text" class="form-control" id="instagram_agenzia" name="instagram_agenzia" placeholder="Inserisci l'indirizzo Instagram dell'Agenzia">
+                            <small id="instagram_agenziahelp" class="form-text text-muted">Questo sarà l'indirizzo Instagram del tasto sotto il logo</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="linkedin_agenzia">Indirizzo LinkedIn</label>
+                            <input type="text" class="form-control" id="linkedin_agenzia" name="linkedin_agenzia" placeholder="Inserisci l'indirizzo LinkedIn dell'Agenzia">
+                            <small id="linkedin_agenziahelp" class="form-text text-muted">Questo sarà l'indirizzo LinkedIn del tasto sotto il logo</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="google_agenzia">Indirizzo Google Places</label>
+                            <input type="text" class="form-control" id="google_agenzia" name="google_agenzia" placeholder="Inserisci l'indirizzo Google Places dell'Agenzia">
+                            <small id="google_agenziahelp" class="form-text text-muted">Questo sarà l'indirizzo Google Places del tasto sotto il logo</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="sito_agenzia">Indirizzo Sito Web</label>
+                            <input type="text" class="form-control" id="sito_agenzia" name="sito_agenzia" placeholder="Inserisci l'indirizzo Sito Web dell'Agenzia">
+                            <small id="sito_agenziahelp" class="form-text text-muted">Questo sarà l'indirizzo Sito Web del tasto sotto il logo</small>
+                        </div>
+                    </div>
+                    <div class="step3">
+                        <h2>Step n. 3: Blocco Info</h2>
+                        <div class="form-group">
+                            <label for="info_titolo">Titolo della sezione Info</label>
+                            <input type="text" class="form-control" id="info_titolo" name="info_titolo" placeholder="Inserisci il titolo che vuoi che appaia per il blocco Info">
+                            <small id="info_titolohelp" class="form-text text-muted">Questo sarà il titolo della sezione Info dell'Applicazione</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="info_immagine" class="form-label">Immagine di fondo del Titolo della sezione Info</label>
+                            <input class="form-control" type="file" id="info_immagine" name="info_immagine">
+                            <small id="info_immaginehelp" class="form-text text-muted">Carica un solo file .png delle dimensioni che preferisci, ma con un rapporto di 6:1.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="info_nomi_sedi">Nomi delle varie Sedi</label>
+                            <input type="text" class="form-control" id="info_nomi_sedi" name="info_nomi_sedi" placeholder="Inserisci i nomi delle varie sedi dell'Agenzia">
+                            <small id="info_nomi_sedihelp" class="form-text text-muted">Separa i nomi usando un |</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="info_indirizzi_sedi">Indirizzi delle varie Sedi</label>
+                            <input type="text" class="form-control" id="info_indirizzi_sedi" name="info_indirizzi_sedi" placeholder="Inserisci gli indirizzi delle varie sedi dell'Agenzia">
+                            <small id="info_indirizzi_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="info_testo_orari">Testo sopra gli orari di apertura</label>
+                            <input type="text" class="form-control" id="info_testo_orari" name="info_testo_orari" placeholder="Inserisci il testo che vuoi che appaia in grassetto sopra gli orari delle varie sedi">
+                            <small id="info_testo_orarihelp" class="form-text text-muted">Separa i testi usando un |</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="info_orari_sedi">Orari di apertura delle varie Sedi</label>
+                            <input type="text" class="form-control" id="info_orari_sedi" name="info_orari_sedi" placeholder="Inserisci gli orari di apertura delle varie sedi dell'Agenzia">
+                            <small id="info_orari_sedihelp" class="form-text text-muted">Separa gli orari usando un |, se vuoi andare a capo potrai usare la shortcut "\n"</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="info_recensioni_sedi">Link per la recensione delle sedi</label>
+                            <input type="text" class="form-control" id="info_recensioni_sedi" name="info_recensioni_sedi" placeholder="Inserisci il link a cui rimanderà il tasto 'lascia una recensione'">
+                            <small id="info_recensioni_sedihelp" class="form-text text-muted">Separa i link usando un |</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="info_telefono_sedi">Numeri di Telefono delle varie sedi</label>
+                            <input type="text" class="form-control" id="info_telefono_sedi" name="info_telefono_sedi" placeholder="Inserisci il numero di telefono delle varie sedi">
+                            <small id="info_telefono_sedihelp" class="form-text text-muted">Scrivilo nel formato internazionale (+393333333333). Separa i numeri usando un |</small>
                         </div>
                     </div>
                     <div class="form-group">
