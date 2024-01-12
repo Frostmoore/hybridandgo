@@ -3,7 +3,7 @@ require_once "conn.php";
 $agenzie = [];
 $agenzia = [];
 
-$sql = "SELECT * FROM agenzie";
+$sql = "SELECT * FROM agenzie_new";
 $result = $con->query($sql);
 
 if ($result->num_rows > 0) {

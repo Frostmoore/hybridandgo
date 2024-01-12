@@ -37,23 +37,25 @@ include_once "res/fetchagenzie.php";
     <div class="container-age">
         <div class="row">
             <?php foreach ($agenzie as $agenzia) : ?>
-                <div class="col-sm">
-                    <div class="agenzia-compressed">
-                        <div class="logo-compressed">
-                            <!--Logo-->
-                            <img src="<?php echo ($agenzia["logo"] == "placeholder") ? "https://loremflickr.com/128/128" : "res/" . $agenzia["logo"]; ?>" width="128" height="128" />
-                        </div>
-                        <div class="info-compressed">
-                            <!--Nome-->
-                            <h2><?= $agenzia["nome"]; ?></h2>
-                            <!--ID-->
-                            <p>ID: <strong><?= $agenzia["id"]; ?></strong></p>
-                        </div>
-                        <div class="info-compressed">
-                            <a href="agenzia.php?id=<?= $agenzia["id"] ?>"><button type="button" class="btn btn-outline-danger">Modifica Dati</button></a>
+                <?php if ($agenzia['id'] != 0) : ?>
+                    <div class="col-sm">
+                        <div class="agenzia-compressed">
+                            <div class="logo-compressed">
+                                <!--Logo-->
+                                <img src="<?php echo ($agenzia["logo_agenzia"] == "placeholder") ? "https://loremflickr.com/128/128" : "res/" . $agenzia["logo_agenzia"]; ?>" width="128" height="128" />
+                            </div>
+                            <div class="info-compressed">
+                                <!--Nome-->
+                                <h2><?= $agenzia["nome_agenzia"]; ?></h2>
+                                <!--ID-->
+                                <p>ID: <strong><?= $agenzia["id"]; ?></strong></p>
+                            </div>
+                            <div class="info-compressed">
+                                <a href="agenzia.php?id=<?= $agenzia["id"] ?>"><button type="button" class="btn btn-outline-danger">Modifica Dati</button></a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php endif; ?>
             <?php endforeach; ?>
             <div class="col-sm">
                 <div class="agenzia-compressed">
