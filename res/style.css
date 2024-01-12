@@ -316,6 +316,7 @@ body.loggedin {
 .bottone_next {
     width: 30%;
     margin-top: 20px;
+    margin-bottom: 40px;
     background-color: rgb(41, 111, 27);
     color: white;
     padding: 15px;
@@ -332,6 +333,7 @@ body.loggedin {
 .bottone_previous {
     width: 30%;
     margin-top: 20px;
+    margin-bottom: 40px;
     background-color: rgb(111, 105, 27);
     color: white;
     padding: 15px;

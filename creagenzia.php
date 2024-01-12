@@ -25,6 +25,7 @@ if (!isset($_SESSION['loggedin'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 
@@ -42,7 +43,8 @@ if (!isset($_SESSION['loggedin'])) {
     <div class="container-age">
         <div class="row">
             <div class="col">
-                <form action="res/nuovagenzia.php" method="POST" enctype="multipart/form-data">
+                <form action="res/nuovagenzia.php" method="POST" enctype="multipart/form-data" id="formcrea">
+                    <h4 class="errore" id="errore"></h4>
                     <div class="step1" id="step1">
                         <h2>Step n. 1: Generali</h2>
                         <div class="form-group">
@@ -61,9 +63,9 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="logo_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione 1024x1024x7MB.</small>
                         </div>
                         <div class="mb-3">
-                            <label for="cover_agenzia" class="form-label">Cover dell'Agenzia</label>
-                            <input class="form-control" type="file" id="cover_agenzia" name="cover_agenzia">
-                            <small id="cover_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione massima 2400x1256x14MB.</small>
+                            <label for="header_agenzia" class="form-label">Cover dell'Agenzia</label>
+                            <input class="form-control" type="file" id="header_agenzia" name="header_agenzia">
+                            <small id="header_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione massima 2400x1256x14MB.</small>
                         </div>
                         <div class="form-group">
                             <label for="colori">Colori</label>
@@ -71,8 +73,7 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="nomeagenziahelp" class="form-text text-muted">Inserisci tre colori, separati da un |, nel formato 0xffffffff</small>
                         </div>
                         <div class="rowbottone">
-                            <button class="bottone_previous" id="indietro1">INDIETRO</button>
-                            <button class="bottone_next" id="bottone1">AVANTI</button>
+                            <button type="button" class="bottone_next" id="bottone1" onclick="muovitiAvanti('1')">AVANTI</button>
                         </div>
                     </div>
                     <div class="step2 a_hidden" id="step2">
@@ -103,8 +104,8 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="sito_agenziahelp" class="form-text text-muted">Questo sarà l'indirizzo Sito Web del tasto sotto il logo</small>
                         </div>
                         <div class="rowbottone">
-                            <button class="bottone_previous" id="indietro2">INDIETRO</button>
-                            <button class="bottone_next" id="bottone2">AVANTI</button>
+                            <button type="button" class="bottone_previous" id="indietro2" onclick="muovitiIndietro('2')">INDIETRO</button>
+                            <button type="button" class="bottone_next" id="bottone2" onclick="muovitiAvanti('2')">AVANTI</button>
                         </div>
                     </div>
                     <div class="step3 a_hidden" id="step3">
@@ -165,8 +166,8 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="info_sito_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
                         </div>
                         <div class="rowbottone">
-                            <button class="bottone_previous" id="indietro3">INDIETRO</button>
-                            <button class="bottone_next" id="bottone3">AVANTI</button>
+                            <button type="button" class="bottone_previous" id="indietro3" onclick="muovitiIndietro('3')">INDIETRO</button>
+                            <button type="button" class="bottone_next" id="bottone3" onclick="muovitiAvanti('3')">AVANTI</button>
                         </div>
                     </div>
                     <div class="step4 a_hidden" id="step4">
@@ -187,8 +188,8 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="notifica_linkhelp" class="form-text text-muted">Sarà il link del tasto "Scopri di più"</small>
                         </div>
                         <div class="rowbottone">
-                            <button class="bottone_previous" id="indietro4">INDIETRO</button>
-                            <button class="bottone_next" id="bottone4">AVANTI</button>
+                            <button type="button" class="bottone_previous" id="indietro4" onclick="muovitiIndietro('4')">INDIETRO</button>
+                            <button type="button" class="bottone_next" id="bottone4" onclick="muovitiAvanti('4')">AVANTI</button>
                         </div>
                     </div>
                     <div class="step5 a_hidden" id="step5">
@@ -224,8 +225,8 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="numeri_utili_linkhelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio. I numeri dovranno essere espressi nel formato internazionale (+393333333333)</small>
                         </div>
                         <div class="rowbottone">
-                            <button class="bottone_previous" id="indietro5">INDIETRO</button>
-                            <button class="bottone_next" id="bottone5">AVANTI</button>
+                            <button type="button" class="bottone_previous" id="indietro5" onclick="muovitiIndietro('5')">INDIETRO</button>
+                            <button type="button" class="bottone_next" id="bottone5" onclick="muovitiAvanti('5')">AVANTI</button>
                         </div>
                     </div>
                     <div class="step6 a_hidden" id="step6">
@@ -241,13 +242,18 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="denuncia_titolohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
                         </div>
                         <div class="form-group">
+                            <label for="denuncia_testo_grassetto">Inserisci il testo in grassetto della sezione "Denuncia un Sinistro"</label>
+                            <input type="text" class="form-control" id="denuncia_testo_grassetto" name="denuncia_testo_grassetto" placeholder="Testo in grassetto">
+                            <small id="denuncia_testo_grassettohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
+                        </div>
+                        <div class="form-group">
                             <label for="denuncia_testo">Inserisci il testo della sezione "Denuncia un Sinistro"</label>
                             <input type="textarea" class="form-control" id="denuncia_testo" name="denuncia_testo" placeholder="Testo Sezione 'Denuncia un Sinistro'">
                             <small id="denuncia_testohelp" class="form-text text-muted">Il testo apparirà sotto il titolo</small>
                         </div>
                         <div class="rowbottone">
-                            <button class="bottone_previous" id="indietro6">INDIETRO</button>
-                            <button class="bottone_next" id="bottone6">AVANTI</button>
+                            <button type="button" class="bottone_previous" id="indietro6" onclick="muovitiIndietro('6')">INDIETRO</button>
+                            <button type="button" class="bottone_next" id="bottone6" onclick="muovitiAvanti('6')">AVANTI</button>
                         </div>
                     </div>
                     <div class="step7 a_hidden" id="step7">
@@ -268,8 +274,8 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="quick_emailhelp" class="form-text text-muted"> </small>
                         </div>
                         <div class="rowbottone">
-                            <button class="bottone_previous" id="indietro7">INDIETRO</button>
-                            <button class="bottone_next" id="bottone7">AVANTI</button>
+                            <button type="button" class="bottone_previous" id="indietro7" onclick="muovitiIndietro('7')">INDIETRO</button>
+                            <button type="button" class="bottone_next" id="bottone7" onclick="muovitiAvanti('7')">AVANTI</button>
                         </div>
                     </div>
                     <div class="step8 a_hidden" id="step8">
@@ -280,83 +286,163 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="attivahelp" class="form-text text-muted">Potrai disabilitarla in qualunque momento</small>
                         </div>
                         <div class="rowbottone">
-                            <button class="bottone_previous" id="indietro8">INDIETRO</button>
-                            <button class="bottone_next" id="bottone8">CREA AGENZIA</button>
+                            <button type="button" class="bottone_previous" id="indietro8" onclick="muovitiIndietro('8')">INDIETRO</button>
+                            <button type="submit" class="bottone_next" id="bottone8">CREA AGENZIA</button>
                         </div>
                     </div>
-                    <!--
-                    <div class="form-group">
-                        <label for="nome">Nome Agenzia</label>
-                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Inserisci il Nome della nuova Agenzia">
-                        <small id="nomehelp" class="form-text text-muted">Questo sarà il nome utilizzato anche per l'applicazione</small>
-                    </div>
-                    </br>
-                    <div class="form-group">
-                        <label for="geolocation">Coordinate Geografiche</label>
-                        <input type="text" class="form-control" id="geolocation" name="geolocation" placeholder="Inserisci le coordinate geografiche delle varie sedi dell'agenzia, separate da uno spazio. Es.: '42.242249,12.3484909 42.242301,12.3513665'">
-                        <small id="geolocationhelp" class="form-text text-muted">Verranno utilizzate per generare le mappe sull'app.</small>
-                    </div>
-                    </br>
-                    <div class="form-group">
-                        <label for="indirizzo">Indirizzi delle Sedi</label>
-                        <input type="text" class="form-control" id="indirizzo" name="indirizzo" placeholder="Inserisci gli indirizzi delle varie sedi dell'agenzia separate da un ?. Es.: 'Via dell'alloro, 34 - Roma?Via del Tritone, 21'">
-                        <small id="indirizzohelp" class="form-text text-muted">Verranno elencati sull'applicazione.</small>
-                    </div>
-                    </br>
-                    <div class="form-group">
-                        <label for="social">Profili Social</label>
-                        <input type="text" class="form-control" id="social" name="social" placeholder="Inserisci i profili social dell'agenzia separati da uno spazio. Es.: 'https://www.facebook.com/tizio_caio www.instagram.com/tizio_caio/'">
-                        <small id="socialhelp" class="form-text text-muted">Verranno utilizzati per generare i collegamenti social sull'app.</small>
-                    </div>
-                    </br>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Inserisci gli indirizzi e-mail dell'agenzia separati da un?. Es.: 'tizio@caio.it?mariorossi@sever.com'">
-                        <small id="emailhelp" class="form-text text-muted">Verranno utilizzati per generare il form di contatto e la sezione contatti dell'app.</small>
-                    </div>
-                    </br>
-                    <div class="form-group">
-                        <label for="telefono">Contatti Telefonici</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Inserisci i contatti telefonici dell'agenzia separati da un ?. Es.: 'Mario Rossi: 3331234564?Fabio Neri: 3358842617'">
-                        <small id="telefonohelp" class="form-text text-muted">Verranno utilizzate per la chiamata diretta e per generare la sezione contatti dell'app.</small>
-                    </div>
-                    </br>
-                    <div class="form-group">
-                        <label for="orari">Orari di Apertura</label>
-                        <input type="text" class="form-control" id="orari" name="orari" placeholder="Inserisci gli orari di apertura delle varie sedi, separando ogni riga con un ?. Es.: 'Dal lunedì al venerdì: 08:30-12:30 / 15:00-18:30?Sabato e domenica: Chiusi'">
-                        <small id="orarihelp" class="form-text text-muted">Verranno elencati sull'applicazione.</small>
-                    </div>
-                    </br>
-                    <div class="form-group">
-                        <label for="colori">Colori App</label>
-                        <input type="text" class="form-control" id="colori" name="colori" placeholder="Inserisci i codici colore Hex per l'applicazione, separati da uno spazio. Es.: '#F08968 #43a5be #5c62d6'">
-                        <small id="colorihelp" class="form-text text-muted">Verranno utilizzati per generare i colori principali delle pagine dell'app.</small>
-                    </div>
-                    </br>
-                    <div class="mb-3">
-                        <label for="logo" class="form-label">Logo dell'Agenzia</label>
-                        <input class="form-control" type="file" id="logo" name="logo">
-                        <small id="logohelp" class="form-text text-muted">Carica un solo file .png di dimensione 1024x1024x7MB.</small>
-                    </div>
-                    </br>
-                    <div class="mb-3">
-                        <label for="cover" class="form-label">Cover dell'Agenzia</label>
-                        <input class="form-control" type="file" id="cover" name="cover">
-                        <small id="coverhelp" class="form-text text-muted">Carica un solo file .png di dimensione massima 2400x1256x14MB.</small>
-                    </div>
-                    </br>
-                    <div class="mb-3">
-                        <label for="immagini" class="form-label">Foto-gallery dell'Agenzia</label>
-                        <input class="form-control" type="file" id="immagini" name="immagini[]" multiple>
-                        <small id="immaginihelp" class="form-text text-muted">Carica quanti file .png desideri, di dimensione massima 2160x2160x30MB.</small>
-                    </div>
-                    </br>
-                    <button type="submit" class="btn btn-outline-success" style="margin-bottom:30px; width:100%; position:relative; transform:translatex(-50%); left: 50%;">Crea</button>
-                    </br>-->
                 </form>
             </div>
         </div>
     </div>
 </body>
+
+<script>
+    // BUTTONS NEXT
+    var bottone1 = $("#bottone1");
+    var bottone2 = $("#bottone2");
+    var bottone3 = $("#bottone3");
+    var bottone4 = $("#bottone4");
+    var bottone5 = $("#bottone5");
+    var bottone6 = $("#bottone6");
+    var bottone7 = $("#bottone7");
+    var bottone8 = $("#bottone8");
+
+    // BUTTONS PREVIOUS
+    var indietro2 = $("#indietro2");
+    var indietro3 = $("#indietro3");
+    var indietro4 = $("#indietro4");
+    var indietro5 = $("#indietro5");
+    var indietro6 = $("#indietro6");
+    var indietro7 = $("#indietro7");
+    var indietro8 = $("#indietro8");
+
+    // SEZIONI
+    var step1 = $("#step1");
+    var step2 = $("#step2");
+    var step3 = $("#step3");
+    var step4 = $("#step4");
+    var step5 = $("#step5");
+    var step6 = $("#step6");
+    var step7 = $("#step7");
+    var step8 = $("#step8");
+
+    // FORM ELEMENTS
+    var form = $("#formcrea");
+    var errore = $("#errore");
+    //// Step 1
+    var nome_app = $("#nome_app");
+    var nome_agenzia = $("#nome_agenzia");
+    var logo_agenzia = $("#logo_agenzia");
+    var header_agenzia = $("#header_agenzia");
+    var colori = $("#colori");
+    //// Step 2
+    var facebook_agenzia = $("#facebook_agenzia");
+    var instagram_agenzia = $("#instagram_agenzia");
+    var linkedin_agenzia = $("#linkedin_agenzia");
+    var google_agenzia = $("#google_agenzia");
+    var sito_agenzia = $("#sito_agenzia");
+    //// Step 3
+    var info_titolo = $("#info_titolo");
+    var info_immagine = $("#info_immagine");
+    var info_nomi_sedi = $("#info_nomi_sedi");
+    var info_indirizzi_sedi = $("#info_indirizzi_sedi");
+    var info_testo_orari = $("#info_testo_orari");
+    var info_orari_sedi = $("#info_orari_sedi");
+    var info_recensioni_sedi = $("#info_recensioni_sedi");
+    var info_telefono_sedi = $("#info_telefono_sedi");
+    var info_email_sedi = $("#info_email_sedi");
+    var info_mappa_sedi = $("#info_mappa_sedi");
+    var info_sito_sedi = $("#info_sito_sedi");
+    //// Step 4
+    var notifica_titolo = $("#notifica_titolo");
+    var notifica_testo = $("#notifica_testo");
+    var notifica_link = $("#notifica_link");
+    //// Step 5
+    var contatti_immagine = $("#contatti_immagine");
+    var contatti_titolo = $("#contatti_titolo");
+    var contatti_testo = $("#contatti_testo");
+    var numeri_utili_labels = $("#numeri_utili_labels");
+    var numeri_utili_colori = $("#numeri_utili_colori");
+    var numeri_utili_link = $("#numeri_utili_link");
+    //// Step 6
+    var denuncia_immagine = $("#denuncia_immagine");
+    var denuncia_titolo = $("#denuncia_titolo");
+    var denuncia_testo = $("#denuncia_testo");
+    var denuncia_testo_grassetto = $("#denuncia_testo_grassetto");
+    //// Step 7
+    var quick_telefono = $("#quick_telefono");
+    var quick_whatsapp = $("#quick_whatsapp");
+    var quick_email = $("#quick_email");
+    //// Step 8
+    var attiva = $("#attiva");
+
+    // FUNZIONE AVANTI
+    function muovitiAvanti(location) {
+        switch (location) {
+            case '1':
+                step1.addClass("a_hidden");
+                step2.removeClass("a_hidden");
+                break;
+            case '2':
+                step2.addClass("a_hidden");
+                step3.removeClass("a_hidden");
+                break;
+            case '3':
+                step3.addClass("a_hidden");
+                step4.removeClass("a_hidden");
+                break;
+            case '4':
+                step4.addClass("a_hidden");
+                step5.removeClass("a_hidden");
+                break;
+            case '5':
+                step5.addClass("a_hidden");
+                step6.removeClass("a_hidden");
+                break;
+            case '6':
+                step6.addClass("a_hidden");
+                step7.removeClass("a_hidden");
+                break;
+            case '7':
+                step7.addClass("a_hidden");
+                step8.removeClass("a_hidden");
+                break;
+        }
+    }
+
+    // FUNZIONE INDIETRO
+    function muovitiIndietro(location) {
+        switch (location) {
+            case '2':
+                step2.addClass("a_hidden");
+                step1.removeClass("a_hidden");
+                break;
+            case '3':
+                step3.addClass("a_hidden");
+                step2.removeClass("a_hidden");
+                break;
+            case '4':
+                step4.addClass("a_hidden");
+                step3.removeClass("a_hidden");
+                break;
+            case '5':
+                step5.addClass("a_hidden");
+                step4.removeClass("a_hidden");
+                break;
+            case '6':
+                step6.addClass("a_hidden");
+                step5.removeClass("a_hidden");
+                break;
+            case '7':
+                step7.addClass("a_hidden");
+                step6.removeClass("a_hidden");
+                break;
+            case '8':
+                step7.removeClass("a_hidden");
+                step8.addClass("a_hidden");
+                break;
+        }
+    }
+</script>
 
 </html>

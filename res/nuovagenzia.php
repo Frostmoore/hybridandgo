@@ -37,12 +37,12 @@ if (!file_exists("img\\" . $currentid)) { // Change slash if in prod on linux
 $allowedTypes = ["image/png", "image/x-png"];
 
 // Upload Logo
-if (!isset($_FILES["logo"])) {
+if (!isset($_FILES["logo_agenzia"])) {
     die("Non è stato caricato alcun file nel campo Logo. Il Logo è un elemento obbligatorio.");
 } else {
 
     // Define Variables
-    $logoPath = $_FILES["logo"]["tmp_name"];
+    $logoPath = $_FILES["logo_agenzia"]["tmp_name"];
     $logoDimensions = @getimagesize($logoPath);
     $logoWidth = $logoDimensions[0];
     $logoHeight = $logoDimensions[1];
@@ -72,24 +72,24 @@ if (!isset($_FILES["logo"])) {
     }
 
     // Upload File
-    if ($_FILES["logo"]["error"] > 0) {
-        echo "Error: " . $_FILES["logo"]["error"] . "<br />";
+    if ($_FILES["logo_agenzia"]["error"] > 0) {
+        echo "Error: " . $_FILES["logo_agenzia"]["error"] . "<br />";
     } else {
-        move_uploaded_file($_FILES["logo"]["tmp_name"], $dir . "logo.png");
+        move_uploaded_file($_FILES["logo_agenzia"]["tmp_name"], $dir . "logo_agenzia.png");
 
-        /* PATH TO LOGO */
-        $logo = $dir . "logo.png";
+        /* PATH TO logo_agenzia */
+        $logo_agenzia = $dir . "logo_agenzia.png";
     }
 }
 
 
 // Upload Cover
-if (!isset($_FILES["cover"])) {
+if (!isset($_FILES["header_agenzia"])) {
     die("Non è stato caricato alcun file nel capo Cover. La Cover è un elemento obbligatorio.");
 } else {
 
     // Define Variables
-    $coverPath = $_FILES["cover"]["tmp_name"];
+    $coverPath = $_FILES["header_agenzia"]["tmp_name"];
     $coverDimensions = @getimagesize($coverPath);
     $coverWidth = $coverDimensions[0];
     $coverHeight = $coverDimensions[1];
@@ -119,67 +119,14 @@ if (!isset($_FILES["cover"])) {
     }
 
     // Upload File
-    if ($_FILES["cover"]["error"] > 0) {
-        echo "Error: " . $_FILES["cover"]["error"] . "<br />";
+    if ($_FILES["header_agenzia"]["error"] > 0) {
+        echo "Error: " . $_FILES["header_agenzia"]["error"] . "<br />";
     } else {
-        move_uploaded_file($_FILES["cover"]["tmp_name"], $dir . "cover.png");
+        move_uploaded_file($_FILES["header_agenzia"]["tmp_name"], $dir . "header_agenzia.png");
 
-        /* PATH TO COVER */
-        $cover = $dir . "cover.png";
+        /* PATH TO header_agenzia */
+        $header_agenzia = $dir . "header_agenzia.png";
     }
-}
-
-// Upload Gallery
-$count = 0;
-$imgpaths = [];
-
-if (!isset($_FILES["immagini"])) {
-    $imgpaths = ["placeholder", "placeholder", "placeholder"];
-} else {
-    foreach ($_FILES["immagini"]["name"] as $immagine) {
-
-        // Define Variables
-        $imgPath = $_FILES["immagini"]["tmp_name"][$count];
-        $imgDimensions = @getimagesize($imgPath);
-        $imgWidth = $imgDimensions[0];
-        $imgHeight = $imgDimensions[1];
-        $imgSize = filesize($imgPath);
-        $imgInfo = finfo_open(FILEINFO_MIME_TYPE);
-        $imgType = finfo_file($imgInfo, $imgPath);
-
-        // Check File Size
-        if ($imgSize === 0) {
-            die("L'immagine n. " . $count . " è vuota.");
-        } elseif ($imgSize > 45145728) {
-            die("L'immagine n. " . $count . " è troppo pesante. Max 30MB.");
-        }
-
-        // Check File Type
-        if (!in_array($imgType, $allowedTypes)) {
-            die("Il tipo di file per l'immagine n. " . $count . " non è consentito.");
-        }
-
-        // Check File Dimensions
-        if ($imgWidth > 2160) {
-            die("L'immagine n. " . $count . " è troppo larga.");
-        }
-
-        if ($imgHeight > 2160) {
-            die("L'immagine n. " . $count . " è troppo alta.");
-        }
-
-        // Upload Files
-        if ($_FILES["immagini"]["error"][$count] > 0) {
-            die("Error: " . $count . ":" . $_FILES["immagini"]["error"][$count] . "<br />");
-        } else {
-            move_uploaded_file($_FILES["immagini"]["tmp_name"][$count], $dir . $count . ".png");
-            array_push($imgpaths, $dir . $count . ".png");
-            $count = $count + 1;
-        }
-    }
-
-    /* PATH TO IMAGES */
-    $immagini = implode(" ", $imgpaths);
 }
 
 // Generate API Key
@@ -195,7 +142,7 @@ function generateRandomString($length = 10)
 }
 
 // Fetch form data and create variables.
-$nome = $_POST["nome"];
+/*$nome = $_POST["nome"];
 $geolocation = $_POST["geolocation"];
 $indirizzo = $_POST["indirizzo"];
 $social = $_POST["social"];
@@ -203,10 +150,62 @@ $email = $_POST["email"];
 $telefono = $_POST["telefono"];
 $orari = $_POST["orari"];
 $colori = $_POST["colori"];
-$api_key = generateRandomString();
+$api_key = generateRandomString();*/
+
+// Sezione 1
+$nome_app = $_POST["nome_app"];
+$nome_agenzia = $_POST["nome_agenzia"];
+$logo_agenzia = $_POST["logo_agenzia"];
+$header_agenzia = $_POST["header_agenzia"];
+// Sezione 2
+$facebook_agenzia = $_POST["facebook_agenzia"];
+$instagram_agenzia = $_POST["instagram_agenzia"];
+$linkedin_agenzia = $_POST["linkedin_agenzia"];
+$google_agenzia = $_POST["google_agenzia"];
+$sito_agenzia = $_POST["sito_agenzia"];
+// Sezione 3
+$info_titolo = $_POST["info_titolo"];
+$info_immagine = $_POST["info_immagine"];
+$info_nomi_sedi = $_POST["info_nomi_sedi"];
+$info_indirizzi_sedi = $_POST["info_indirizzi_sedi"];
+$info_testo_orari = $_POST["info_testo_orari"];
+$info_orari_sedi = $_POST["info_orari_sedi"];
+$info_recensioni_sedi = $_POST["info_recensioni_sedi"];
+$info_telefono_sedi = $_POST["info_telefono_sedi"];
+$info_email_sedi = $_POST["info_email_sedi"];
+$info_mappa_sedi = $_POST["info_mappa_sedi"];
+$info_sito_sedi = $_POST["info_sito_sedi"];
+// Sezione 4
+$notifica_titolo = $_POST["notifica_titolo"];
+$notifica_testo = $_POST["notifica_testo"];
+$notifica_link = $_POST["notifica_link"];
+// Sezione 5
+$contatti_immagine = $_POST["contatti_immagine"];
+$contatti_titolo = $_POST["contatti_titolo"];
+$contatti_testo = $_POST["contatti_testo"];
+$numeri_utili_labels = $_POST["numeri_utili_labels"];
+$numeri_utili_colori = $_POST["numeri_utili_colori"];
+$numeri_utili_link = $_POST["numeri_utili_link"];
+// Sezione 6
+$denuncia_immagine = $_POST["denuncia_immagine"];
+$denuncia_titolo = $_POST["denuncia_titolo"];
+$denuncia_testo = $_POST["denuncia_testo"];
+$denuncia_testo_grassetto = $_POST["denuncia_testo_grassetto"];
+// Sezione 7
+$quick_telefono = $_POST["quick_telefono"];
+$quick_whatsapp = $_POST["quick_whatsapp"];
+$quick_email = $_POST["quick_email"];
+// Sezione 8
+$attiva = $_POST["attiva"];
+// Sezione 9
+$token = generateRandomString();
+
+
+
+
 
 // TEST
-echo $nome . "</br>";
+/*echo $nome . "</br>";
 echo $geolocation . "</br>";
 echo $indirizzo . "</br>";
 echo $social . "</br>";
@@ -216,11 +215,11 @@ echo $orari . "</br>";
 echo $colori . "</br>";
 echo $logo . "</br>";
 echo $cover . "</br>";
-echo $immagini . "</br>";
+echo $immagini . "</br>";*/
 
 // DB INSERTS
-$stmt = $con->prepare("INSERT INTO agenzie (id, nome, geolocation, indirizzo, social, email, telefono, orari, colori, logo, cover, immagini, api_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("sssssssssssss", $currentid, $nome, $geolocation, $indirizzo, $social, $email, $telefono, $orari, $colori, $logo, $cover, $immagini, $api_key);
+$stmt = $con->prepare("INSERT INTO agenzie_new (id, nome_app, nome_agenzia, logo_agenzia, header_agenzia, colori, facebook_agenzia, instagram_agenzia, linkedin_agenzia, google_agenzia, sito_agenzia, info_titolo, info_immagine, info_nomi_sedi, info_indirizzi_sedi, info_testo_orari, info_orari_sedi, info_recensioni_sedi, info_telefono_sedi, info_email_sedi, info_mappa_sedi, info_sito_sedi, notifica_titolo, notifica_testo, notifica_link, contatti_immagine, contatti_titolo, contatti_testo, numeri_utili_labels, numeri_utili_colori, numeri_utili_link, denuncia_immagine, denuncia_titolo, denuncia_testo, denuncia_testo_grassetto, quick_telefono, quick_whatsapp, quick_email, attiva, token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssssssssssssssssssssssssssssssssssssss", $currentid, $nome_app, $nome_agenzia, $logo_agenzia, $header_agenzia, $colori, $facebook_agenzia, $instagram_agenzia, $linkedin_agenzia, $google_agenzia, $sito_agenzia, $info_titolo, $info_immagine, $info_nomi_sedi, $info_indirizzi_sedi, $info_testo_orari, $info_orari_sedi, $info_recensioni_sedi, $info_telefono_sedi, $info_email_sedi, $info_mappa_sedi, $info_sito_sedi, $notifica_titolo, $notifica_testo, $notifica_link, $contatti_immagine, $contatti_titolo, $contatti_testo, $numeri_utili_labels, $numeri_utili_colori, $numeri_utili_link, $denuncia_immagine, $denuncia_titolo, $denuncia_testo, $denuncia_testo_grassetto, $quick_telefono, $quick_whatsapp, $quick_email, $attiva, $token);
 $stmt->execute();
 $stmt->close();
 //$con->close();
