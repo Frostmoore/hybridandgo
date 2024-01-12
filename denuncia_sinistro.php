@@ -29,15 +29,18 @@ if ($result->num_rows > 0) {
 </head>
 
 <body>
+    <img src="res/img/<?= $agenzia['id']; ?>/header_agenzia.png" id="header_agenzia" class="header_agenzia">
     <div class="page_denuncia">
-        <h1 style="text-align:center;">Denuncia il tuo Sinistro</h1>
+        <h1 style="text-align:center;">Denuncia il tuo Sinistro su <?= $agenzia['nome_agenzia']; ?></h1>
         <div class="row_selettore">
             <select id="select_sinistro">
-                <option value="selezione">Scegli il tipo di Sinistro</option>
-                <option value="auto">Sinistro Auto</option>
-                <option value="nonauto">Altro Sinistro</option>
+                <option value="selezione" id="option_selezione">Scegli il tipo di Sinistro</option>
+                <option value="auto" id="option_auto">Sinistro Auto</option>
+                <option value="nonauto" id="option_nonauto">Altro Sinistro</option>
             </select>
         </div>
+        <div class="form_auto_wrapper a_hidden" id="form_auto_wrapper"></div>
+        <div class="form_nonauto_wrapper a_hidden" id="form_nonauto_wrapper"></div>
     </div>
 </body>
 
