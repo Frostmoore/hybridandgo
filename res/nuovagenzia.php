@@ -295,6 +295,7 @@ $nome_app = $_POST["nome_app"];
 $nome_agenzia = $_POST["nome_agenzia"];
 //$logo_agenzia = $_POST["logo_agenzia"];
 //$header_agenzia = $_POST["header_agenzia"];
+$colori = $_POST["colori"];
 // Sezione 2
 $facebook_agenzia = $_POST["facebook_agenzia"];
 $instagram_agenzia = $_POST["instagram_agenzia"];

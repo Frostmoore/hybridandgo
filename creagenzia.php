@@ -287,7 +287,7 @@ if (!isset($_SESSION['loggedin'])) {
                         </div>
                         <div class="rowbottone">
                             <button type="button" class="bottone_previous" id="indietro8" onclick="muovitiIndietro('8')">INDIETRO</button>
-                            <button type="submit" class="bottone_next" id="bottone8">CREA AGENZIA</button>
+                            <button class="bottone_next" id="bottone8">CREA AGENZIA</button>
                         </div>
                     </div>
                 </form>
