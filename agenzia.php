@@ -10,7 +10,7 @@ $agenzie = [];
 $agenzia = [];
 $id = $_GET['id'];
 
-$sql = "SELECT * FROM `agenzie` WHERE `id`=" . $id;
+$sql = "SELECT * FROM `agenzie_new` WHERE `id`=" . $id;
 $result = $con->query($sql);
 $agenzia = $result->fetch_assoc();
 
@@ -42,7 +42,7 @@ $agenzia = $result->fetch_assoc();
         </div>
     </nav>
     <div class="page">
-        <h1><?= $agenzia["nome"]; ?></h1>
+        <h1><?= $agenzia["nome_agenzia"]; ?></h1>
         <!--ID-->
         <p>ID: <strong><?= $agenzia["id"]; ?></strong></p>
     </div>
@@ -51,27 +51,27 @@ $agenzia = $result->fetch_assoc();
             <form action="res/updateagenzia.php" method="POST" enctype="multipart/form-data">
                 <div class="col-sm agenzia">
                     <!--Cover-->
-                    <img src="<?php echo ($agenzia["logo"] == "placeholder") ? "https://loremflickr.com/512/256" : "res/" . $agenzia["cover"]; ?>" class="cover" width="1000" height="523" />
+                    <img src="<?php echo ($agenzia["header_agenzia"] == "placeholder") ? "https://loremflickr.com/512/256" : "res/" . $agenzia["header_agenzia"]; ?>" class="cover" width="1000" height="523" />
                     <!--Logo-->
-                    <img src="<?php echo ($agenzia["logo"] == "placeholder") ? "https://loremflickr.com/128/128" : "res/" . $agenzia["logo"]; ?>" class="logo" style="width: 20%;" />
+                    <img src="<?php echo ($agenzia["logo_agenzia"] == "placeholder") ? "https://loremflickr.com/128/128" : "res/" . $agenzia["logo_agenzia"]; ?>" class="logo" style="width: 20%;" />
                     </br></br>
                     <div class="mb-3 corto">
-                        <label for="logo" class="form-label"><strong>Logo dell'Agenzia:</strong></label>
-                        <input class="form-control" type="file" id="logo" name="logo">
-                        <small id="logohelp" class="form-text text-muted">Carica un solo file .png di dimensione 1024x1024x7MB.</small>
+                        <label for="logo_agenzia" class="form-label"><strong>Logo dell'Agenzia:</strong></label>
+                        <input class="form-control" type="file" id="logo_agenzia" name="logo_agenzia">
+                        <small id="logo_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione 1024x1024x7MB.</small>
                     </div>
                     </br></br>
                     <div class="mb-3 corto">
-                        <label for="cover" class="form-label"><strong>Cover dell'Agenzia:</strong></label>
-                        <input class="form-control" type="file" id="cover" name="cover">
-                        <small id="coverhelp" class="form-text text-muted">Carica un solo file .png di dimensione massima 2400x1256x14MB.</small>
+                        <label for="header_agenzia" class="form-label"><strong>Cover dell'Agenzia:</strong></label>
+                        <input class="form-control" type="file" id="header_agenzia" name="header_agenzia">
+                        <small id="header_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione massima 2400x1256x14MB.</small>
                     </div>
                     </br></br>
                     <!--API Key-->
                     <div class="mb-3 corto">
-                        <label for="api_key" class="form-label"><strong>API Key dell'Agenzia</strong></label>
-                        <input class="form-control" type="text" id="api-key" name="api-key" value="<?= $agenzia["api_key"] ?>">
-                        <small id="apikeyhelp" class="form-text text-muted">Chiave API da inserire in fase di creazione dell'App.</small>
+                        <label for="token" class="form-label"><strong>API Key dell'Agenzia</strong></label>
+                        <input class="form-control" type="text" id="token" name="token" value="<?= $agenzia["token"] ?>">
+                        <small id="tokenhelp" class="form-text text-muted">Chiave API da inserire in fase di creazione dell'App.</small>
                     </div>
                     <!--Orari-->
                     <p><strong>Orari:</strong></p>
