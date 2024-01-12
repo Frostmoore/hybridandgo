@@ -209,6 +209,17 @@ $agenzia_id = $_GET['id'];
                 break;
         }
     }
+
+    function denunciaSinistro(id, tipo) {
+        // da fare ajax
+        if (tipo == 'auto') {
+            //todo
+        } else if (tipo == 'nonauto') {
+            //todo
+        } else {
+            <?php die('Si è verificato un errore, contatta un amministratore'); ?>
+        }
+    }
 </script>
 
 </html>
