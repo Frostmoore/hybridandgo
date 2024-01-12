@@ -3,6 +3,14 @@ if (!isset($_GET['id'])) {
     die('Inserisci un id valido');
 }
 
+if (!isset($_GET['token'])) {
+    die('Accesso non consentito');
+} else {
+    if ($_GET['token'] != $agenzia['token']) {
+        die('Accesso non consentito');
+    }
+}
+
 $id = $_GET['id'];
 
 include_once "res/conn.php";
@@ -13,6 +21,14 @@ $result = $con->query($sqlid);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $agenzia = $row;
+    }
+}
+
+if (!isset($_GET['token'])) {
+    die('Accesso non consentito');
+} else {
+    if ($_GET['token'] != $agenzia['token']) {
+        die('Accesso non consentito');
     }
 }
 ?>
