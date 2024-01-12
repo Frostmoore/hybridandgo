@@ -7,10 +7,10 @@ if (!isset($_SESSION['loggedin'])) {
 
 require_once "conn.php";
 
-if (!isset($_GET['id'])) {
+if (!isset($_POST['id'])) {
     die('Non è stato selezionato alcun ID');
 } else {
-    $currentid = $_GET['id'];
+    $currentid = $_POST['id'];
     $sqlid = "SELECT * FROM agenzie_new WHERE id=$currentid";
     $result = $con->query($sqlid);
     if ($result->num_rows > 0) {
@@ -49,8 +49,10 @@ if (!file_exists("img\\" . $currentid)) { // Change slash if in prod on linux
 // Allowed file types for images
 $allowedTypes = ["image/png", "image/x-png"];
 
+
+/*
 // Upload Logo
-if (empty($_FILES["logo_agenzia"])) {
+if (!isset($_FILES["logo_agenzia"])) {
     $logo_agenzia = $agenzia['logo_agenzia'];
 } else {
 
@@ -90,7 +92,7 @@ if (empty($_FILES["logo_agenzia"])) {
     } else {
         move_uploaded_file($_FILES["logo_agenzia"]["tmp_name"], $dir . "logo_agenzia.png");
 
-        /* PATH TO logo_agenzia */
+        //PATH TO logo_agenzia 
         $logo_agenzia = $dir . "logo_agenzia.png";
     }
 }
@@ -137,8 +139,9 @@ if (empty($_FILES["header_agenzia"])) {
     } else {
         move_uploaded_file($_FILES["header_agenzia"]["tmp_name"], $dir . "header_agenzia.png");
 
-        /* PATH TO header_agenzia */
+        //PATH TO header_agenzia 
         $header_agenzia = $dir . "header_agenzia.png";
+        
     }
 }
 
@@ -183,7 +186,7 @@ if (empty($_FILES["info_immagine"])) {
     } else {
         move_uploaded_file($_FILES["info_immagine"]["tmp_name"], $dir . "info_immagine.png");
 
-        /* PATH TO Immagine Infoe */
+        // PATH TO Immagine Infoe 
         $info_immagine = $dir . "info_immagine.png";
     }
 }
@@ -229,7 +232,7 @@ if (empty($_FILES["contatti_immagine"])) {
     } else {
         move_uploaded_file($_FILES["contatti_immagine"]["tmp_name"], $dir . "contatti_immagine.png");
 
-        /* PATH TO Immagine Contattie */
+        // PATH TO Immagine Contattie 
         $contatti_immagine = $dir . "contatti_immagine.png";
     }
 }
@@ -275,10 +278,10 @@ if (empty($_FILES["denuncia_immagine"])) {
     } else {
         move_uploaded_file($_FILES["denuncia_immagine"]["tmp_name"], $dir . "denuncia_immagine.png");
 
-        /* PATH TO Immagine Denuncia Sinistroe */
+        // PATH TO Immagine Denuncia Sinistroe 
         $denuncia_immagine = $dir . "denuncia_immagine.png";
     }
-}
+}*/
 
 // Sezione 1
 $nome_app = $_POST["nome_app"];
@@ -327,11 +330,11 @@ $quick_email = $_POST["quick_email"];
 // Sezione 8
 //$attiva = $_POST["attiva"];
 // Sezione 9
-$token = generateRandomString();
+//$token = generateRandomString();
 
 // DB INSERTS
-$stmt = $con->prepare("UPDATE agenzie_new SET nome_app=?, nome_agenzia=?, logo_agenzia=?, header_agenzia=?, colori=?, facebook_agenzia=?, instagram_agenzia=?, linkedin_agenzia=?, google_agenzia=?, sito_agenzia=?, info_titolo=?, info_immagine=?, info_nomi_sedi=?, info_indirizzi_sedi=?, info_testo_orari=?, info_orari_sedi=?, info_recensioni_sedi=?, info_telefono_sedi=?, info_email_sedi=?, info_mappa_sedi=?, info_sito_sedi=?, notifica_titolo=?, notifica_testo=?, notifica_link=?, contatti_immagine=?, contatti_titolo=?, contatti_testo=?, numeri_utili_labels=?, numeri_utili_colori=?, numeri_utili_link=?, denuncia_immagine=?, denuncia_titolo=?, denuncia_testo=?, denuncia_testo_grassetto=?, quick_telefono=?, quick_whatsapp=?, quick_email=? WHERE id=?");
-$stmt->bind_param("ssssssssssssssssssssssssssssssssssssss", $nome_app, $nome_agenzia, $logo_agenzia, $header_agenzia, $colori, $facebook_agenzia, $instagram_agenzia, $linkedin_agenzia, $google_agenzia, $sito_agenzia, $info_titolo, $info_immagine, $info_nomi_sedi, $info_indirizzi_sedi, $info_testo_orari, $info_orari_sedi, $info_recensioni_sedi, $info_telefono_sedi, $info_email_sedi, $info_mappa_sedi, $info_sito_sedi, $notifica_titolo, $notifica_testo, $notifica_link, $contatti_immagine, $contatti_titolo, $contatti_testo, $numeri_utili_labels, $numeri_utili_colori, $numeri_utili_link, $denuncia_immagine, $denuncia_titolo, $denuncia_testo, $denuncia_testo_grassetto, $quick_telefono, $quick_whatsapp, $quick_email, $currentid);
+$stmt = $con->prepare("UPDATE agenzie_new SET nome_app=?, nome_agenzia=?, colori=?, facebook_agenzia=?, instagram_agenzia=?, linkedin_agenzia=?, google_agenzia=?, sito_agenzia=?, info_titolo=?, info_nomi_sedi=?, info_indirizzi_sedi=?, info_testo_orari=?, info_orari_sedi=?, info_recensioni_sedi=?, info_telefono_sedi=?, info_email_sedi=?, info_mappa_sedi=?, info_sito_sedi=?, notifica_titolo=?, notifica_testo=?, notifica_link=?, contatti_titolo=?, contatti_testo=?, numeri_utili_labels=?, numeri_utili_colori=?, numeri_utili_link=?, denuncia_titolo=?, denuncia_testo=?, denuncia_testo_grassetto=?, quick_telefono=?, quick_whatsapp=?, quick_email=? WHERE id=?");
+$stmt->bind_param("sssssssssssssssssssssssssssssssss", $nome_app, $nome_agenzia, $colori, $facebook_agenzia, $instagram_agenzia, $linkedin_agenzia, $google_agenzia, $sito_agenzia, $info_titolo, $info_nomi_sedi, $info_indirizzi_sedi, $info_testo_orari, $info_orari_sedi, $info_recensioni_sedi, $info_telefono_sedi, $info_email_sedi, $info_mappa_sedi, $info_sito_sedi, $notifica_titolo, $notifica_testo, $notifica_link, $contatti_titolo, $contatti_testo, $numeri_utili_labels, $numeri_utili_colori, $numeri_utili_link, $denuncia_titolo, $denuncia_testo, $denuncia_testo_grassetto, $quick_telefono, $quick_whatsapp, $quick_email, $currentid);
 $stmt->execute();
 $stmt->close();
 //$con->close();

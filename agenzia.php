@@ -299,6 +299,7 @@ $agenzia = $result->fetch_assoc();
                         <small id="attivahelp" class="form-text text-muted">Potrai disabilitarla in qualunque momento</small>
                     </div>
                     <div class="rowbottone">
+                        <input type="text" class="a_hidden" value="<?= $agenzia['id'] ?>" name="id" id="id">
                         <button type="button" class="bottone_previous" id="indietro8" onclick="muovitiIndietro('8')">INDIETRO</button>
                         <button class="bottone_next" id="bottone8">MODIFICA</button>
                     </div>
