@@ -163,6 +163,10 @@ $agenzia_id = $_GET['id'];
             </form>
         </div>
     </div>
+    <div class="errore a_hidden" id="errore">
+        <h2 id="h2_errore">ATTENZIONE!</h2>
+        <p id="p_errore"></p>
+    </div>
 </body>
 
 <script>
@@ -174,6 +178,9 @@ $agenzia_id = $_GET['id'];
     var option_auto = $("#option_auto");
     var option_nonauto = $("#option_nonauto");
     var row_selettore = $("#row_selettore");
+    var errore = $("#errore");
+    var h2_errore = $("#h2_errore");
+    var p_errore = $("#p_errore");
 
 
     // campi auto
@@ -211,13 +218,10 @@ $agenzia_id = $_GET['id'];
     }
 
     function denunciaSinistro(id, tipo) {
-        // da fare ajax
         if (tipo == 'auto') {
             //todo
-        } else if (tipo == 'nonauto') {
-            //todo
         } else {
-            <?php die('Si è verificato un errore, contatta un amministratore'); ?>
+            //todo
         }
     }
 </script>
