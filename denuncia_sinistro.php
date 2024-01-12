@@ -57,8 +57,8 @@ $agenzia_id = $_GET['id'];
             <button type="button" class="tasto_selezione_sinistro" name="button_auto" id="button_auto" onclick="dropdown_form('auto')">Sinistro Auto</button>
             <button type="button" class="tasto_selezione_sinistro" name="button_nonauto" id="button_nonauto" onclick="dropdown_form('nonauto')">Altro Sinistro</button>
         </div>
-        <div class=" form_auto_wrapper a_hidden" id="form_auto_wrapper">
-            <form action="" method="post" enctype="multipart/form-data">
+        <div class="form_auto_wrapper a_hidden" id="form_auto_wrapper">
+            <form action="res/denunciasinistro.php" method="post" enctype="multipart/form-data" id="form_auto">
                 <div class="row_form_denuncia">
                     <div class="form-group-denuncia">
                         <label for="primo_nome_denuncia_auto" class="label_denuncia">Il tuo Nome<span style="color: red;">*</span></label><br />
@@ -110,15 +110,19 @@ $agenzia_id = $_GET['id'];
                 </div>
 
                 <input type="text" class="a_hidden" id="agenzia_id" value="<?= $agenzia_id; ?>">
+                <div class="errore a_hidden" id="errore">
+                    <h2 id="h2_errore">ATTENZIONE!</h2>
+                    <p id="p_errore"></p>
+                </div>
                 <div class="rowbottone">
-                    <button type="button" class="bottone_submit_denuncia_auto" id="bottone_submit_denuncia_auto" onclick="denunciaSinistro('<?= $agenzia_id; ?>', 'nonauto')">INOLTRA LA DENUNCIA</button>
+                    <button type="button" class="bottone_submit_denuncia_auto" id="bottone_submit_denuncia_auto" onclick="denunciaSinistro('auto')">INOLTRA LA DENUNCIA</button>
                 </div>
         </div>
         </form>
     </div>
     <div class="page_denuncia">
         <div class="form_nonauto_wrapper a_hidden" id="form_nonauto_wrapper">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="res/denunciasinistro.php" method="post" enctype="multipart/form-data" id="form_nonauto">
                 <div class="row_form_denuncia">
                     <div class="form-group-denuncia">
                         <label for="primo_nome_denuncia_nonauto" class="label_denuncia">Il tuo Nome<span style="color: red;">*</span></label><br />
@@ -157,15 +161,15 @@ $agenzia_id = $_GET['id'];
                         <label for="checkbox_privacy_nonauto" class="label_privacy">Do il consenso<span style="color: red;">*</span></label><br>
                     </div>
                     <input type="text" class="a_hidden" id="agenzia_id" value="<?= $agenzia_id; ?>">
+                    <div class="errore a_hidden" id="nerrore">
+                        <h2 id="nh2_errore">ATTENZIONE!</h2>
+                        <p id="np_errore"></p>
+                    </div>
                     <div class="rowbottone">
-                        <button type="button" class="bottone_submit_denuncia_nonauto" id="bottone_submit_denuncia_nonauto" onclick="denunciaSinistro('<?= $agenzia_id; ?>', 'nonauto')">INOLTRA LA DENUNCIA</button>
+                        <button type="button" class="bottone_submit_denuncia_nonauto" id="bottone_submit_denuncia_nonauto" onclick="denunciaSinistro('nonauto')">INOLTRA LA DENUNCIA</button>
                     </div>
             </form>
         </div>
-    </div>
-    <div class="errore a_hidden" id="errore">
-        <h2 id="h2_errore">ATTENZIONE!</h2>
-        <p id="p_errore"></p>
     </div>
 </body>
 
@@ -173,6 +177,8 @@ $agenzia_id = $_GET['id'];
     // campi generici
     var form_nonauto_wrapper = $("#form_nonauto_wrapper");
     var form_auto_wrapper = $("#form_auto_wrapper");
+    var form_auto = $("#form_auto");
+    var form_nonauto = $("#form_nonauto");
     var select_sinistro = $("#select_sinistro");
     var option_selezione = $("#option_selezione");
     var option_auto = $("#option_auto");
@@ -181,6 +187,9 @@ $agenzia_id = $_GET['id'];
     var errore = $("#errore");
     var h2_errore = $("#h2_errore");
     var p_errore = $("#p_errore");
+    var nerrore = $("#nerrore");
+    var nh2_errore = $("#nh2_errore");
+    var np_errore = $("#np_errore");
 
 
     // campi auto
@@ -191,6 +200,7 @@ $agenzia_id = $_GET['id'];
     var cai_denuncia_auto = $("#cai_denuncia_auto");
     var documenti_denuncia_auto = $("#documenti_denuncia_auto");
     var immagini_denuncia_auto = $("#immagini_denuncia_auto");
+    var checkbox_privacy_auto = $("#checkbox_privacy_auto");
 
     // campi non auto
     var primo_nome_denuncia_nonauto = $("#primo_nome_denuncia_nonauto");
@@ -199,6 +209,7 @@ $agenzia_id = $_GET['id'];
     var descrizione_denuncia_nonauto = $("#descrizione_denuncia_nonauto");
     var documenti_denuncia_nonauto = $("#documenti_denuncia_nonauto");
     var immagini_denuncia_nonauto = $("#immagini_denuncia_nonauto");
+    var checkbox_privacy_nonauto = $("#checkbox_privacy_nonauto");
 
 
     // Funzionalità
@@ -217,11 +228,56 @@ $agenzia_id = $_GET['id'];
         }
     }
 
-    function denunciaSinistro(id, tipo) {
+    function denunciaSinistro(tipo) {
         if (tipo == 'auto') {
             //todo
+            if (primo_nome_denuncia_auto[0].value.length < 1) {
+                errore.removeClass("a_hidden").fadeIn();
+                p_errore[0].innerHTML = "Il campo Nome è obbligatorio";
+            } else if (cognome_denuncia_auto[0].value.length < 1) {
+                errore.removeClass("a_hidden").fadeIn();
+                p_errore[0].innerHTML = "Il campo Cognome è obbligatorio";
+            } else if (email_denuncia_auto[0].value.length < 1) {
+                errore.removeClass("a_hidden").fadeIn();
+                p_errore[0].innerHTML = "Il campo e-mail è obbligatorio";
+            } else if (descrizione_denuncia_auto[0].value.length < 1) {
+                errore.removeClass("a_hidden").fadeIn();
+                p_errore[0].innerHTML = "Il campo Descrizione è obbligatorio";
+            } else if (cai_denuncia_auto[0].files.length < 1) {
+                errore.removeClass("a_hidden").fadeIn();
+                p_errore[0].innerHTML = "Il campo CAI è obbligatorio";
+            } else if (documenti_denuncia_auto[0].files.length < 1) {
+                errore.removeClass("a_hidden").fadeIn();
+                p_errore[0].innerHTML = "Il campo Documenti è obbligatorio";
+            } else if (!checkbox_privacy_auto[0].checked) {
+                errore.removeClass("a_hidden").fadeIn();
+                p_errore[0].innerHTML = "Per proseguire, devi accettare la liberatoria privacy";
+            } else {
+                form_auto.submit();
+            }
         } else {
             //todo
+            if (primo_nome_denuncia_nonauto[0].value.length < 1) {
+                nerrore.fadeIn();
+                np_errore[0].innerHTML = "Il campo Nome è obbligatorio";
+            } else if (cognome_denuncia_nonauto[0].value.length < 1) {
+                nerrore.fadeIn();
+                np_errore[0].innerHTML = "Il campo Cognome è obbligatorio";
+            } else if (email_denuncia_nonauto[0].value.length < 1) {
+                nerrore.fadeIn();
+                np_errore[0].innerHTML = "Il campo e-mail è obbligatorio";
+            } else if (descrizione_denuncia_nonauto[0].value.length < 1) {
+                nerrore.fadeIn();
+                np_errore[0].innerHTML = "Il campo Descrizione è obbligatorio";
+            } else if (documenti_denuncia_nonauto[0].files.length < 1) {
+                nerrore.fadeIn();
+                np_errore[0].innerHTML = "Il campo Documenti è obbligatorio";
+            } else if (!checkbox_privacy_nonauto[0].checked) {
+                nerrore.fadeIn();
+                np_errore[0].innerHTML = "Per proseguire, devi accettare la liberatoria privacy";
+            } else {
+                form_nonauto.submit();
+            }
         }
     }
 </script>
