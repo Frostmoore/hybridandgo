@@ -111,6 +111,7 @@ $agenzia_id = $_GET['id'];
                 </div>
 
                 <input type="text" class="a_hidden" name="agenzia_id_auto" id="agenzia_id_auto" value="<?= $agenzia_id; ?>">
+                <input type="text" class="a_hidden" name="denuncia_mail_auto" id="denuncia_mail_auto" value="<?= $agenzia['denuncia_mail']; ?>">
                 <div class="errore a_hidden" id="errore">
                     <h2 id="h2_errore">ATTENZIONE!</h2>
                     <p id="p_errore"></p>
@@ -162,6 +163,7 @@ $agenzia_id = $_GET['id'];
                         <label for="checkbox_privacy_nonauto" class="label_privacy">Do il consenso<span style="color: red;">*</span></label><br>
                     </div>
                     <input type="text" class="a_hidden" name="agenzia_id_nonauto" id="agenzia_id_nonauto" value="<?= $agenzia_id; ?>">
+                    <input type="text" class="a_hidden" name="denuncia_mail_nonauto" id="denuncia_mail_nonauto" value="<?= $agenzia['denuncia_mail']; ?>">
                     <div class="errore a_hidden" id="nerrore">
                         <h2 id="nh2_errore">ATTENZIONE!</h2>
                         <p id="np_errore"></p>

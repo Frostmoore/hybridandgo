@@ -1,4 +1,13 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
 include_once 'conn.php';
 
 $sqlid = "SELECT MAX(id) FROM sinistri";
@@ -13,13 +22,13 @@ if (!isset($_POST['agenzia_id_auto']) && !isset($_POST['agenzia_id_nonauto'])) {
 
 // Main.Run()
 if (isset($_POST['agenzia_id_auto'])) {
-    denunciaAuto($_POST, $_FILES, $currentid, $con);
+    denunciaAuto($_POST, $_FILES, $currentid, $con, $mail_username, $mail_password);
 } else {
-    denunciaNonAuto($_POST, $_FILES, $currentid, $con);
+    denunciaNonAuto($_POST, $_FILES, $currentid, $con, $mail_username, $mail_password);
 }
 
 // Func denuncia sinistro AUTO
-function denunciaAuto($post, $files, $currentid, $conn)
+function denunciaAuto($post, $files, $currentid, $conn, $mail_username, $mail_password)
 {
     // Gestione $_POST e creazione variabili
     $id = $currentid;
@@ -29,6 +38,7 @@ function denunciaAuto($post, $files, $currentid, $conn)
     $agenzia_id = $post['agenzia_id_auto'];
     $tipo = 'auto';
     $data_denuncia = date('d/m/Y');
+    $denuncia_mail = $post['denuncia_mail_auto'];
 
     // Echo data TEST
     // echo '<strong>ID Sinistro</strong>: ' . $id . '<br />';
@@ -91,11 +101,95 @@ function denunciaAuto($post, $files, $currentid, $conn)
         $stmt->execute();
         $stmt->close();
         header('refresh=1; url=./success.html');
+
+        // Send e-mail
+        $to = $denuncia_mail;
+        $from = $email;
+        $fromname = 'Denunce Sinistri';
+        $subject = 'Nuova denuncia di Sinistro da ' . $nome;
+        $attachment_file = $zip_file_name;
+        $body_contents = '
+        <h2><strong>NUOVA DENUNCIA DI SINISTRO</strong></h2>
+        <p><strong>Denunciante</strong>: ' . $nome . '</p>
+        <p><strong>e-mail Denunciante</strong>: ' . $email . '</p>
+        <p><strong>Tipo di Sinistro</strong>: ' . $tipo . '</p>
+        <p><strong>Data Denuncia</strong>: ' . $data_denuncia . '</p>
+        <p><strong>Descrizione del Sinistro</strong>: </p>
+        <p>' . $descrizione . '</p>
+        <p><strong>In allegato, la documentazione presentata dal denunciante.</strong></p>
+        ';
+        $headers = 'From: ' . $fromname . '<' . $email . '>';
+
+
+        /*$boundary = uniqid();
+
+        // header information
+        $headers = "From: $from\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: multipart/mixed; boundary=\".$boundary.\"\r\n";
+
+        // attachment
+        $attachment = chunk_split(base64_encode(file_get_contents($attachment_file)));
+
+        // message with attachment
+        $message = "--" . $boundary . "\r\n";
+        $message .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        $message .= "Content-Transfer-Encoding: base64\r\n\r\n";
+        $message .= chunk_split(base64_encode($message));
+        $message .= "--" . $boundary . "\r\n";
+        $message .= "Content-Type: application/octet-stream; name=\"file.pdf\"\r\n";
+        $message .= "Content-Transfer-Encoding: base64\r\n";
+        $message .= "Content-Disposition: attachment; filename=\"file.pdf\"\r\n\r\n";
+        $message .= $attachment . "\r\n";
+        $message .= "--" . $boundary . "--";
+
+        // send email
+        if (mail(
+            $to,
+            $subject,
+            $message,
+            $headers
+        )) {
+            echo "Email with attachment sent successfully.";
+        } else {
+            echo "Failed to send email with attachment.";
+        }*/
+
+
+        $mail = new PHPMailer;
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Host = "smtps.aruba.it";
+        $mail->Port = 587;
+        $mail->SMTPAuth = true;
+        $mail->Username = $mail_username;
+        $mail->Password = $mail_password;
+        $mail->setFrom('r.ronconi@smp-digital.it', $fromname); // Cambiare FROM
+        $mail->addAddress($to);
+        $mail->Subject = $subject;
+        $mail->isHTML(true);
+        $mail->Body = $body_contents;
+        $mail->AltBody = 'Messaggi HTML non supportati';
+        $mail->addAttachment($zip_file_name);
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+
+        if (!$mail->send()) {
+            echo "Errore PHPMailer: " . $mail->ErrorInfo;
+        } else {
+            echo "Mail Inviata con successo!";
+        }
     }
 }
 
 // Func denuncia sinistro NON AUTO
-function denunciaNonAuto($post, $files, $currentid, $conn)
+function denunciaNonAuto($post, $files, $currentid, $conn, $mail_username, $mail_password)
 {
     // Gestione $_POST e creazione variabili
     $id = $currentid;
@@ -105,6 +199,7 @@ function denunciaNonAuto($post, $files, $currentid, $conn)
     $agenzia_id = $post['agenzia_id_nonauto'];
     $tipo = 'nonauto';
     $data_denuncia = date('d/m/Y');
+    $denuncia_mail = $post['denuncia_mail_nonauto'];
 
     $zip = new ZipArchive();
     $zip_file_name = 'sinistri/' . date('Ymd') . '-' . $id . '-' . 'documentazione.zip';
@@ -146,5 +241,89 @@ function denunciaNonAuto($post, $files, $currentid, $conn)
         $stmt->execute();
         $stmt->close();
         header('refresh=1; url=./success.html');
+
+        // Send e-mail
+        $to = $denuncia_mail;
+        $from = $email;
+        $fromname = 'Denunce Sinistri';
+        $subject = 'Nuova denuncia di Sinistro da ' . $nome;
+        $attachment_file = $zip_file_name;
+        $body_contents = '
+        <h2><strong>NUOVA DENUNCIA DI SINISTRO</strong></h2>
+        <p><strong>Denunciante</strong>: ' . $nome . '</p>
+        <p><strong>e-mail Denunciante</strong>: ' . $email . '</p>
+        <p><strong>Tipo di Sinistro</strong>: ' . $tipo . '</p>
+        <p><strong>Data Denuncia</strong>: ' . $data_denuncia . '</p>
+        <p><strong>Descrizione del Sinistro</strong>: </p>
+        <p>' . $descrizione . '</p>
+        <p><strong>In allegato, la documentazione presentata dal denunciante.</strong></p>
+        ';
+        $headers = 'From: ' . $fromname . '<' . $email . '>';
+
+
+        /*$boundary = uniqid();
+
+        // header information
+        $headers = "From: $from\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: multipart/mixed; boundary=\".$boundary.\"\r\n";
+
+        // attachment
+        $attachment = chunk_split(base64_encode(file_get_contents($attachment_file)));
+
+        // message with attachment
+        $message = "--" . $boundary . "\r\n";
+        $message .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        $message .= "Content-Transfer-Encoding: base64\r\n\r\n";
+        $message .= chunk_split(base64_encode($message));
+        $message .= "--" . $boundary . "\r\n";
+        $message .= "Content-Type: application/octet-stream; name=\"file.pdf\"\r\n";
+        $message .= "Content-Transfer-Encoding: base64\r\n";
+        $message .= "Content-Disposition: attachment; filename=\"file.pdf\"\r\n\r\n";
+        $message .= $attachment . "\r\n";
+        $message .= "--" . $boundary . "--";
+
+        // send email
+        if (mail(
+            $to,
+            $subject,
+            $message,
+            $headers
+        )) {
+            echo "Email with attachment sent successfully.";
+        } else {
+            echo "Failed to send email with attachment.";
+        }*/
+
+
+        $mail = new PHPMailer;
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Host = "smtps.aruba.it";
+        $mail->Port = 587;
+        $mail->SMTPAuth = true;
+        $mail->Username = $mail_username;
+        $mail->Password = $mail_password;
+        $mail->setFrom('r.ronconi@smp-digital.it', $fromname); // Cambiare FROM
+        $mail->addAddress($to);
+        $mail->Subject = $subject;
+        $mail->isHTML(true);
+        $mail->Body = $body_contents;
+        $mail->AltBody = 'Messaggi HTML non supportati';
+        $mail->addAttachment($zip_file_name);
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+
+        if (!$mail->send()) {
+            echo "Errore PHPMailer: " . $mail->ErrorInfo;
+        } else {
+            echo "Mail Inviata con successo!";
+        }
     }
 }

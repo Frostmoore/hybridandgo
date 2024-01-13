@@ -281,6 +281,11 @@ if (!isset($_SESSION['loggedin'])) {
                     <div class="step8 a_hidden" id="step8">
                         <h2>Ultimo Sep: Attivare l'agenzia</h2>
                         <div class="form-group">
+                            <label for="denuncia_mail">Inserisci l'email per le Denunce di Sinistro</label>
+                            <input type="text" class="form-control" id="denuncia_mail" name="denuncia_mail" placeholder="E-mail a per le denunce di sinistro">
+                            <small id="denuncia_mailhelp" class="form-text text-muted"> </small>
+                        </div>
+                        <div class="form-group">
                             <input type="checkbox" id="attiva" name="attiva" value="1">
                             <label for="attiva">Attivare l'Agenzia?</label><br>
                             <small id="attivahelp" class="form-text text-muted">Potrai disabilitarla in qualunque momento</small>
@@ -374,6 +379,7 @@ if (!isset($_SESSION['loggedin'])) {
     var quick_whatsapp = $("#quick_whatsapp");
     var quick_email = $("#quick_email");
     //// Step 8
+    var mail_denuncia = $("#mail_denuncia");
     var attiva = $("#attiva");
 
     // FUNZIONE AVANTI

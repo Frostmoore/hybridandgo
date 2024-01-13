@@ -328,13 +328,14 @@ $quick_telefono = $_POST["quick_telefono"];
 $quick_whatsapp = $_POST["quick_whatsapp"];
 $quick_email = $_POST["quick_email"];
 // Sezione 8
+$denuncia_mail = $_POST['denuncia_mail'];
 //$attiva = $_POST["attiva"];
 // Sezione 9
 //$token = generateRandomString();
 
 // DB INSERTS
-$stmt = $con->prepare("UPDATE agenzie_new SET nome_app=?, nome_agenzia=?, colori=?, facebook_agenzia=?, instagram_agenzia=?, linkedin_agenzia=?, google_agenzia=?, sito_agenzia=?, info_titolo=?, info_nomi_sedi=?, info_indirizzi_sedi=?, info_testo_orari=?, info_orari_sedi=?, info_recensioni_sedi=?, info_telefono_sedi=?, info_email_sedi=?, info_mappa_sedi=?, info_sito_sedi=?, notifica_titolo=?, notifica_testo=?, notifica_link=?, contatti_titolo=?, contatti_testo=?, numeri_utili_labels=?, numeri_utili_colori=?, numeri_utili_link=?, denuncia_titolo=?, denuncia_testo=?, denuncia_testo_grassetto=?, quick_telefono=?, quick_whatsapp=?, quick_email=? WHERE id=?");
-$stmt->bind_param("sssssssssssssssssssssssssssssssss", $nome_app, $nome_agenzia, $colori, $facebook_agenzia, $instagram_agenzia, $linkedin_agenzia, $google_agenzia, $sito_agenzia, $info_titolo, $info_nomi_sedi, $info_indirizzi_sedi, $info_testo_orari, $info_orari_sedi, $info_recensioni_sedi, $info_telefono_sedi, $info_email_sedi, $info_mappa_sedi, $info_sito_sedi, $notifica_titolo, $notifica_testo, $notifica_link, $contatti_titolo, $contatti_testo, $numeri_utili_labels, $numeri_utili_colori, $numeri_utili_link, $denuncia_titolo, $denuncia_testo, $denuncia_testo_grassetto, $quick_telefono, $quick_whatsapp, $quick_email, $currentid);
+$stmt = $con->prepare("UPDATE agenzie_new SET nome_app=?, nome_agenzia=?, colori=?, facebook_agenzia=?, instagram_agenzia=?, linkedin_agenzia=?, google_agenzia=?, sito_agenzia=?, info_titolo=?, info_nomi_sedi=?, info_indirizzi_sedi=?, info_testo_orari=?, info_orari_sedi=?, info_recensioni_sedi=?, info_telefono_sedi=?, info_email_sedi=?, info_mappa_sedi=?, info_sito_sedi=?, notifica_titolo=?, notifica_testo=?, notifica_link=?, contatti_titolo=?, contatti_testo=?, numeri_utili_labels=?, numeri_utili_colori=?, numeri_utili_link=?, denuncia_titolo=?, denuncia_testo=?, denuncia_testo_grassetto=?, quick_telefono=?, quick_whatsapp=?, quick_email=?, denuncia_mail=? WHERE id=?");
+$stmt->bind_param("ssssssssssssssssssssssssssssssssss", $nome_app, $nome_agenzia, $colori, $facebook_agenzia, $instagram_agenzia, $linkedin_agenzia, $google_agenzia, $sito_agenzia, $info_titolo, $info_nomi_sedi, $info_indirizzi_sedi, $info_testo_orari, $info_orari_sedi, $info_recensioni_sedi, $info_telefono_sedi, $info_email_sedi, $info_mappa_sedi, $info_sito_sedi, $notifica_titolo, $notifica_testo, $notifica_link, $contatti_titolo, $contatti_testo, $numeri_utili_labels, $numeri_utili_colori, $numeri_utili_link, $denuncia_titolo, $denuncia_testo, $denuncia_testo_grassetto, $quick_telefono, $quick_whatsapp, $quick_email, $denuncia_mail, $currentid);
 $stmt->execute();
 $stmt->close();
 //$con->close();

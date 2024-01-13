@@ -294,6 +294,11 @@ $agenzia = $result->fetch_assoc();
                 <div class="step8 a_hidden" id="step8">
                     <h2>Ultimo Sep: Attivare l'agenzia</h2>
                     <div class="form-group">
+                        <label for="denuncia_mail">Inserisci l'email per le Denunce di Sinistro</label>
+                        <input type="text" class="form-control" id="denuncia_mail" name="denuncia_mail" placeholder="E-mail per le denunce di sinistro">
+                        <small id="denuncia_mailhelp" class="form-text text-muted"> </small>
+                    </div>
+                    <div class="form-group">
                         <input type="checkbox" id="attiva" name="attiva" value="<?= $agenzia['attiva']; ?>">
                         <label for="attiva">Attivare l'Agenzia?</label><br>
                         <small id="attivahelp" class="form-text text-muted">Potrai disabilitarla in qualunque momento</small>
