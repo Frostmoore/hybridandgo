@@ -1,36 +1,90 @@
 <?php
+include_once 'conn.php';
+
+$sqlid = "SELECT MAX(id) FROM sinistri";
+$result = $con->query($sqlid);
+$row = $result->fetch_array();
+$latestid = $row[0];
+$currentid = (int)$latestid + 1;
 
 if (!isset($_POST['agenzia_id_auto']) && !isset($_POST['agenzia_id_nonauto'])) {
     die('Accesso Negato');
 }
 
 if (isset($_POST['agenzia_id_auto'])) {
-    denunciaAuto($_POST, $_FILES);
+    denunciaAuto($_POST, $_FILES, $currentid);
 } else {
-    denunciaNonAuto($_POST, $_FILES);
+    denunciaNonAuto($_POST, $_FILES, $currentid);
 }
 
-function denunciaAuto($post, $files)
+function denunciaAuto($post, $files, $currentid)
 {
-    $nome_auto = $post['cognome_denuncia_auto'] . ' ' . $post['primo_nome_denuncia_auto'];
-    $email_auto = $post['email_denuncia_auto'];
-    $descrizione_auto = $post['descrizione_denuncia_auto'];
-    $agenzia_id_auto = $post['agenzia_id_auto'];
+    // Gestione $_POST e creazione variabili
+    $id = $currentid;
+    $nome = $post['cognome_denuncia_auto'] . ' ' . $post['primo_nome_denuncia_auto'];
+    $email = $post['email_denuncia_auto'];
+    $descrizione = $post['descrizione_denuncia_auto'];
+    $agenzia_id = $post['agenzia_id_auto'];
+    $tipo = 'auto';
+    $cai_denuncia = $files['cai_denuncia_auto'];
+    $documenti_denuncia = $files['documenti_denuncia_auto'];
+    $immagini_denuncia = $files['immagini_denuncia_auto'];
+    $data_denuncia = date('d/m/Y');
 
-    echo '<strong>Nome</strong>: ' . $nome_auto . '<br />';
-    echo '<strong>E-Mail</strong>: ' . $email_auto . '<br />';
-    echo '<strong>Descrizione Sinistro</strong>: ' . $descrizione_auto . '<br />';
-    echo '<strong>ID Agenzia</strong>: ' . $agenzia_id_auto . '<br />';
+    // Echo data TEST
+    echo '<strong>ID Sinistro</strong>: ' . $id . '<br />';
+    echo '<strong>Data Denuncia</strong>: ' . $data_denuncia . '<br />';
+    echo '<strong>Nome</strong>: ' . $nome . '<br />';
+    echo '<strong>E-Mail</strong>: ' . $email . '<br />';
+    echo '<strong>Tipo di Sinistro</strong>: ' . $tipo . '<br />';
+    echo '<strong>Descrizione Sinistro</strong>: ' . $descrizione . '<br />';
+    echo '<strong>ID Agenzia</strong>: ' . $agenzia_id . '<br />';
+    echo '<strong>CAI</strong>: ' . $cai_denuncia['tmp_name'][0] . '<br />';
+    echo '<strong>Documenti</strong>: ' . $documenti_denuncia['tmp_name'][0] . '<br />';
+    echo '<strong>Immagini</strong>: ' . $immagini_denuncia['tmp_name'][0] . '<br />';
 
-    echo "<br /><br />";
-    print_r($files['cai_denuncia_auto']);
-    echo "<br /><br />";
-    print_r($files['immagini_denuncia_auto']);
-    echo "<br /><br />";
-    print_r($files['documenti_denuncia_auto']);
+    $zip = new ZipArchive();
+    $zip_file_name = 'sinistri/' . date('Ymd') . '-' . $id . '-' . 'documentazione.zip';
+    if ($zip->open($zip_file_name, ZipArchive::CREATE) === true) {
+        $i = 0;
+        $j = 0;
+        $k = 0;
+
+        //var_dump($files['cai_denuncia_auto']);
+        //print_r($files['cai_denuncia_auto']['tmp_name']);
+        $cai_denuncia_auto = $files['cai_denuncia_auto'];
+        $documenti_denuncia_auto = $files['documenti_denuncia_auto'];
+        $immagini_denuncia_auto = $files['immagini_denuncia_auto'];
+        print_r($cai_denuncia_auto['name'][$i]);
+
+        foreach ($cai_denuncia_auto['tmp_name'] as $cai) {
+            $xp = explode('.', $cai_denuncia_auto['name'][(int)$i]);
+            $ext = end($xp);
+            $zip->addFile($cai, 'CAI-' . $i . '.' . $ext);
+            echo $cai . '<br />';
+            $i += 1;
+        }
+
+        foreach ($documenti_denuncia_auto['tmp_name'] as $doc) {
+            $xp = explode('.', $documenti_denuncia_auto['name'][(int)$j]);
+            $ext = end($xp);
+            $zip->addFile($doc, 'DOCUMENTI-' . $j . '.' . $ext);
+            echo $doc . '<br />';
+            $j += 1;
+        }
+
+        foreach ($immagini_denuncia_auto['tmp_name'] as $ima) {
+            $xp = explode('.', $immagini_denuncia_auto['name'][(int)$k]);
+            $ext = end($xp);
+            $zip->addFile($ima, 'IMMAGINI-' . $k . '.' . $ext);
+            echo $ima . '<br />';
+            $k += 1;
+        }
+        $zip->close();
+    }
 }
 
-function denunciaNonAuto($post, $files)
+function denunciaNonAuto($post, $files, $currentid)
 {
     print_r($post);
 }

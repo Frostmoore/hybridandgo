@@ -83,19 +83,19 @@ $agenzia_id = $_GET['id'];
 
                 <div class="mb-3">
                     <label for="cai_denuncia_auto" class="label_denuncia">Carica il tuo CAI compilato<span style="color: red;">*</span></label>
-                    <input class="form-control" type="file" id="cai_denuncia_auto" name="cai_denuncia_auto" multiple="multiple">
+                    <input class="form-control" type="file" id="cai_denuncia_auto" name="cai_denuncia_auto[]" multiple="multiple">
                     <small id="cai_denuncia_autohelp" class="form-text text-muted">Puoi scattargli una foto o caricarlo in PDF!</small>
                 </div>
 
                 <div class="mb-3">
                     <label for="documenti_denuncia_auto" class="label_denuncia">Carica fronte e retro della tua patente<span style=" color: red;">*</span></label>
-                    <input class="form-control" type="file" id="documenti_denuncia_auto" name="documenti_denuncia_auto" multiple="multiple">
+                    <input class="form-control" type="file" id="documenti_denuncia_auto" name="documenti_denuncia_auto[]" multiple="multiple">
                     <small id="documenti_denuncia_autohelp" class="form-text text-muted">Puoi scattare due foto o caricarla in PDF!</small>
                 </div>
 
                 <div class="mb-3">
                     <label for="immagini_denuncia_auto" class="label_denuncia">Carica immagini relative al tuo sinistro</label>
-                    <input class="form-control" type="file" id="immagini_denuncia_auto" name="immagini_denuncia_auto" multiple="multiple">
+                    <input class="form-control" type="file" id="immagini_denuncia_auto" name="immagini_denuncia_auto[]" multiple="multiple">
                     <small id="immagini_denuncia_autohelp" class="form-text text-muted">Puoi scattare delle foto o caricarle direttamente.</small>
                 </div>
 
@@ -145,12 +145,12 @@ $agenzia_id = $_GET['id'];
                 </div>
                 <div class="mb-3">
                     <label for="documenti_denuncia_nonauto" class="label_denuncia">Carica fronte e retro del documento di identità<span style=" color: red;">*</span></label>
-                    <input class="form-control" type="file" id="documenti_denuncia_nonauto" name="documenti_denuncia_nonauto" multiple="multiple">
+                    <input class="form-control" type="file" id="documenti_denuncia_nonauto" name="documenti_denuncia_nonauto[]" multiple="multiple">
                     <small id="documenti_denuncia_nonautohelp" class="form-text text-muted">Puoi scattare due foto o caricarlo in PDF!</small>
                 </div>
                 <div class="mb-3">
                     <label for="immagini_denuncia_nonauto" class="label_denuncia">Carica immagini relative al tuo sinistro</label>
-                    <input class="form-control" type="file" id="immagini_denuncia_nonauto" name="immagini_denuncia_nonauto" multiple="multiple">
+                    <input class="form-control" type="file" id="immagini_denuncia_nonauto" name="immagini_denuncia_nonauto[]" multiple="multiple">
                     <small id="immagini_denuncia_nonautohelp" class="form-text text-muted">Puoi scattare delle foto o caricarle direttamente.</small>
                 </div>
                 <div class="form-group">
