@@ -12,12 +12,12 @@ if (!isset($_POST['agenzia_id_auto']) && !isset($_POST['agenzia_id_nonauto'])) {
 }
 
 if (isset($_POST['agenzia_id_auto'])) {
-    denunciaAuto($_POST, $_FILES, $currentid);
+    denunciaAuto($_POST, $_FILES, $currentid, $conn);
 } else {
-    denunciaNonAuto($_POST, $_FILES, $currentid);
+    denunciaNonAuto($_POST, $_FILES, $currentid, $conn);
 }
 
-function denunciaAuto($post, $files, $currentid)
+function denunciaAuto($post, $files, $currentid, $conn)
 {
     // Gestione $_POST e creazione variabili
     $id = $currentid;
@@ -26,42 +26,40 @@ function denunciaAuto($post, $files, $currentid)
     $descrizione = $post['descrizione_denuncia_auto'];
     $agenzia_id = $post['agenzia_id_auto'];
     $tipo = 'auto';
-    $cai_denuncia = $files['cai_denuncia_auto'];
-    $documenti_denuncia = $files['documenti_denuncia_auto'];
-    $immagini_denuncia = $files['immagini_denuncia_auto'];
     $data_denuncia = date('d/m/Y');
 
     // Echo data TEST
-    echo '<strong>ID Sinistro</strong>: ' . $id . '<br />';
-    echo '<strong>Data Denuncia</strong>: ' . $data_denuncia . '<br />';
-    echo '<strong>Nome</strong>: ' . $nome . '<br />';
-    echo '<strong>E-Mail</strong>: ' . $email . '<br />';
-    echo '<strong>Tipo di Sinistro</strong>: ' . $tipo . '<br />';
-    echo '<strong>Descrizione Sinistro</strong>: ' . $descrizione . '<br />';
-    echo '<strong>ID Agenzia</strong>: ' . $agenzia_id . '<br />';
-    echo '<strong>CAI</strong>: ' . $cai_denuncia['tmp_name'][0] . '<br />';
-    echo '<strong>Documenti</strong>: ' . $documenti_denuncia['tmp_name'][0] . '<br />';
-    echo '<strong>Immagini</strong>: ' . $immagini_denuncia['tmp_name'][0] . '<br />';
+    // echo '<strong>ID Sinistro</strong>: ' . $id . '<br />';
+    // echo '<strong>Data Denuncia</strong>: ' . $data_denuncia . '<br />';
+    // echo '<strong>Nome</strong>: ' . $nome . '<br />';
+    // echo '<strong>E-Mail</strong>: ' . $email . '<br />';
+    // echo '<strong>Tipo di Sinistro</strong>: ' . $tipo . '<br />';
+    // echo '<strong>Descrizione Sinistro</strong>: ' . $descrizione . '<br />';
+    // echo '<strong>ID Agenzia</strong>: ' . $agenzia_id . '<br />';
+    // echo '<strong>CAI</strong>: ' . $cai_denuncia['tmp_name'][0] . '<br />';
+    // echo '<strong>Documenti</strong>: ' . $documenti_denuncia['tmp_name'][0] . '<br />';
+    // echo '<strong>Immagini</strong>: ' . $immagini_denuncia['tmp_name'][0] . '<br />';
 
     $zip = new ZipArchive();
     $zip_file_name = 'sinistri/' . date('Ymd') . '-' . $id . '-' . 'documentazione.zip';
     if ($zip->open($zip_file_name, ZipArchive::CREATE) === true) {
+        // Declare counters
         $i = 0;
         $j = 0;
         $k = 0;
 
-        //var_dump($files['cai_denuncia_auto']);
-        //print_r($files['cai_denuncia_auto']['tmp_name']);
+        // Declare iteratables
         $cai_denuncia_auto = $files['cai_denuncia_auto'];
         $documenti_denuncia_auto = $files['documenti_denuncia_auto'];
         $immagini_denuncia_auto = $files['immagini_denuncia_auto'];
-        print_r($cai_denuncia_auto['name'][$i]);
+        //print_r($cai_denuncia_auto['name'][$i]);
 
+        // Add files to Archive
         foreach ($cai_denuncia_auto['tmp_name'] as $cai) {
             $xp = explode('.', $cai_denuncia_auto['name'][(int)$i]);
             $ext = end($xp);
             $zip->addFile($cai, 'CAI-' . $i . '.' . $ext);
-            echo $cai . '<br />';
+            //echo $cai . '<br />';
             $i += 1;
         }
 
@@ -69,7 +67,7 @@ function denunciaAuto($post, $files, $currentid)
             $xp = explode('.', $documenti_denuncia_auto['name'][(int)$j]);
             $ext = end($xp);
             $zip->addFile($doc, 'DOCUMENTI-' . $j . '.' . $ext);
-            echo $doc . '<br />';
+            //echo $doc . '<br />';
             $j += 1;
         }
 
@@ -77,30 +75,71 @@ function denunciaAuto($post, $files, $currentid)
             $xp = explode('.', $immagini_denuncia_auto['name'][(int)$k]);
             $ext = end($xp);
             $zip->addFile($ima, 'IMMAGINI-' . $k . '.' . $ext);
-            echo $ima . '<br />';
+            //echo $ima . '<br />';
             $k += 1;
         }
         $zip->close();
+        //var_dump($zip_file_name);
+
+        $privacy = $_POST['checkbox_privacy_auto'];
+
+        $stmt = $conn->prepare("INSERT INTO SINISTRI (id, id_agenzia, nome_denuncia, tipo_sinistro, email_denuncia, documenti_denuncia, data_denuncia, descrizione_denuncia, privacy_denuncia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssss", $currentid, $agenzia_id, $nome, $tipo, $email, $zip_file_name, $data_denuncia, $descrizione, $privacy);
+        $stmt->execute();
+        $stmt->close();
+        header('refresh=0; url=success.html');
     }
 }
 
-function denunciaNonAuto($post, $files, $currentid)
+function denunciaNonAuto($post, $files, $currentid, $conn)
 {
-    print_r($post);
+    // Gestione $_POST e creazione variabili
+    $id = $currentid;
+    $nome = $post['cognome_denuncia_nonauto'] . ' ' . $post['primo_nome_denuncia_nonauto'];
+    $email = $post['email_denuncia_nonauto'];
+    $descrizione = $post['descrizione_denuncia_nonauto'];
+    $agenzia_id = $post['agenzia_id_nonauto'];
+    $tipo = 'nonauto';
+    $data_denuncia = date('d/m/Y');
+
+    $zip = new ZipArchive();
+    $zip_file_name = 'sinistri/' . date('Ymd') . '-' . $id . '-' . 'documentazione.zip';
+    if ($zip->open($zip_file_name, ZipArchive::CREATE) === true) {
+        // Declare counters
+        $i = 0;
+        $j = 0;
+        $k = 0;
+
+        // Declare iteratables
+        $documenti_denuncia_nonauto = $files['documenti_denuncia_nonauto'];
+        $immagini_denuncia_nonauto = $files['immagini_denuncia_nonauto'];
+        //print_r($cai_denuncia_nonauto['name'][$i]);
+
+        // Add files to Archive
+        foreach ($documenti_denuncia_nonauto['tmp_name'] as $doc) {
+            $xp = explode('.', $documenti_denuncia_nonauto['name'][(int)$j]);
+            $ext = end($xp);
+            $zip->addFile($doc, 'DOCUMENTI-' . $j . '.' . $ext);
+            //echo $doc . '<br />';
+            $j += 1;
+        }
+
+        foreach ($immagini_denuncia_nonauto['tmp_name'] as $ima) {
+            $xp = explode('.', $immagini_denuncia_nonauto['name'][(int)$k]);
+            $ext = end($xp);
+            $zip->addFile($ima, 'IMMAGINI-' . $k . '.' . $ext);
+            //echo $ima . '<br />';
+            $k += 1;
+        }
+        $zip->close();
+        //var_dump($zip_file_name);
+
+        $privacy = $_POST['checkbox_privacy_nonauto'];
+
+        $stmt = $conn->prepare("INSERT INTO SINISTRI (id, id_agenzia, nome_denuncia, tipo_sinistro, email_denuncia, documenti_denuncia, data_denuncia, descrizione_denuncia, privacy_denuncia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssss", $currentid, $agenzia_id, $nome, $tipo, $email, $zip_file_name, $data_denuncia, $descrizione, $privacy);
+        $stmt->execute();
+        $stmt->close();
+        header('refresh=0; url=success.html');
+    }
 }
-?>
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="res/style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-</head>
-
-</html>
