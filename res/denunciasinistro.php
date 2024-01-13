@@ -157,7 +157,7 @@ function denunciaAuto($post, $files, $currentid, $conn, $mail_username, $mail_pa
 
 
         $mail = new PHPMailer;
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->isSMTP();
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Host = "smtps.aruba.it";
@@ -297,7 +297,7 @@ function denunciaNonAuto($post, $files, $currentid, $conn, $mail_username, $mail
 
 
         $mail = new PHPMailer;
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->isSMTP();
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Host = "smtps.aruba.it";
