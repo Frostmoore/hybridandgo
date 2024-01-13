@@ -67,6 +67,7 @@ function denunciaAuto($post, $files, $currentid, $conn, $mail_username, $mail_pa
         //print_r($cai_denuncia_auto['name'][$i]);
 
         // Add files to Archive
+        // TODO: Sanitize FILES input
         foreach ($cai_denuncia_auto['tmp_name'] as $cai) {
             $xp = explode('.', $cai_denuncia_auto['name'][(int)$i]);
             $ext = end($xp);
