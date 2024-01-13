@@ -38,6 +38,7 @@ $agenzia_id = $_GET['id'];
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="res/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -46,11 +47,11 @@ $agenzia_id = $_GET['id'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 </head>
 
 <body>
-    <img src="res/img/<?= $agenzia['id']; ?>/header_agenzia.png" id="header_agenzia" class="header_agenzia">
+    <div class="header_agenzia" style="background-image: url('res/img/<?= $agenzia['id']; ?>/header_agenzia.png'); height: 200px; background-position: center;background-size: cover;width:auto;"></div>
+    <!--<img src="res/img//header_agenzia.png" id="header_agenzia" class="header_agenzia">-->
     <div class="page_denuncia">
         <h1 style="text-align:center;" class="h1_form_denuncia">Denuncia il tuo Sinistro su <?= $agenzia['nome_agenzia']; ?></h1>
         <div class="row_selettore" id="row_selettore">

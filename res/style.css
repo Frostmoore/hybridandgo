@@ -365,8 +365,12 @@ small {
 
 @media only screen and (max-width:576px) {
     body {
-        /*width: 400px;*/
+        /*max-width: 576px;*/
         width: 100%;
+    }
+
+    .header_agenzia {
+        height: auto;
     }
 
     small {
