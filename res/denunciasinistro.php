@@ -110,7 +110,7 @@ function denunciaAuto($post, $files, $currentid, $conn, $mail_username, $mail_pa
         $body_contents = '
         <h2><strong>NUOVA DENUNCIA DI SINISTRO</strong></h2>
         <p><strong>Denunciante</strong>: ' . $nome . '</p>
-        <p><strong>e-mail Denunciante</strong>: ' . $email . '</p>
+        <p><strong>e-mail Denunciante</strong>: <a href="mailto:' . $email . '">' . $email . '</a></p>
         <p><strong>Tipo di Sinistro</strong>: ' . $tipo . '</p>
         <p><strong>Data Denuncia</strong>: ' . $data_denuncia . '</p>
         <p><strong>Descrizione del Sinistro</strong>: </p>
@@ -215,7 +215,7 @@ function denunciaNonAuto($post, $files, $currentid, $conn, $mail_username, $mail
         $body_contents = '
         <h2><strong>NUOVA DENUNCIA DI SINISTRO</strong></h2>
         <p><strong>Denunciante</strong>: ' . $nome . '</p>
-        <p><strong>e-mail Denunciante</strong>: ' . $email . '</p>
+        <p><strong>e-mail Denunciante</strong>: <a href="mailto:' . $email . '">' . $email . '</a></p>
         <p><strong>Tipo di Sinistro</strong>: ' . $tipo . '</p>
         <p><strong>Data Denuncia</strong>: ' . $data_denuncia . '</p>
         <p><strong>Descrizione del Sinistro</strong>: </p>
