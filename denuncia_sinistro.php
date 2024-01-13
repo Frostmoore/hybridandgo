@@ -110,13 +110,13 @@ $agenzia_id = $_GET['id'];
                     </div>
                 </div>
 
-                <input type="text" class="a_hidden" id="agenzia_id" value="<?= $agenzia_id; ?>">
+                <input type="text" class="a_hidden" name="agenzia_id_auto" id="agenzia_id_auto" value="<?= $agenzia_id; ?>">
                 <div class="errore a_hidden" id="errore">
                     <h2 id="h2_errore">ATTENZIONE!</h2>
                     <p id="p_errore"></p>
                 </div>
                 <div class="rowbottone">
-                    <button type="button" class="bottone_submit_denuncia_auto" id="bottone_submit_denuncia_auto" onclick="denunciaSinistro('auto')">INOLTRA LA DENUNCIA</button>
+                    <button type="button" name="bottone_submit_denuncia_auto" class="bottone_submit_denuncia_auto" id="bottone_submit_denuncia_auto" onclick="denunciaSinistro('auto')">INOLTRA LA DENUNCIA</button>
                 </div>
         </div>
         </form>
@@ -161,13 +161,13 @@ $agenzia_id = $_GET['id'];
                         <input type="checkbox" id="checkbox_privacy_nonauto" name="checkbox_privacy_nonauto" class="cb_denuncia">
                         <label for="checkbox_privacy_nonauto" class="label_privacy">Do il consenso<span style="color: red;">*</span></label><br>
                     </div>
-                    <input type="text" class="a_hidden" id="agenzia_id" value="<?= $agenzia_id; ?>">
+                    <input type="text" class="a_hidden" name="agenzia_id_nonauto" id="agenzia_id_nonauto" value="<?= $agenzia_id; ?>">
                     <div class="errore a_hidden" id="nerrore">
                         <h2 id="nh2_errore">ATTENZIONE!</h2>
                         <p id="np_errore"></p>
                     </div>
                     <div class="rowbottone">
-                        <button type="button" class="bottone_submit_denuncia_nonauto" id="bottone_submit_denuncia_nonauto" onclick="denunciaSinistro('nonauto')">INOLTRA LA DENUNCIA</button>
+                        <button type="button" name="bottone_submit_denuncia_nonauto" class="bottone_submit_denuncia_nonauto" id="bottone_submit_denuncia_nonauto" onclick="denunciaSinistro('nonauto')">INOLTRA LA DENUNCIA</button>
                     </div>
             </form>
         </div>
