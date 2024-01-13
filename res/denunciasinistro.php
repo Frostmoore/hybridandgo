@@ -120,42 +120,7 @@ function denunciaAuto($post, $files, $currentid, $conn, $mail_username, $mail_pa
         ';
         $headers = 'From: ' . $fromname . '<' . $email . '>';
 
-
-        /*$boundary = uniqid();
-
-        // header information
-        $headers = "From: $from\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: multipart/mixed; boundary=\".$boundary.\"\r\n";
-
-        // attachment
-        $attachment = chunk_split(base64_encode(file_get_contents($attachment_file)));
-
-        // message with attachment
-        $message = "--" . $boundary . "\r\n";
-        $message .= "Content-Type: text/plain; charset=UTF-8\r\n";
-        $message .= "Content-Transfer-Encoding: base64\r\n\r\n";
-        $message .= chunk_split(base64_encode($message));
-        $message .= "--" . $boundary . "\r\n";
-        $message .= "Content-Type: application/octet-stream; name=\"file.pdf\"\r\n";
-        $message .= "Content-Transfer-Encoding: base64\r\n";
-        $message .= "Content-Disposition: attachment; filename=\"file.pdf\"\r\n\r\n";
-        $message .= $attachment . "\r\n";
-        $message .= "--" . $boundary . "--";
-
-        // send email
-        if (mail(
-            $to,
-            $subject,
-            $message,
-            $headers
-        )) {
-            echo "Email with attachment sent successfully.";
-        } else {
-            echo "Failed to send email with attachment.";
-        }*/
-
-
+        // PHPMailer setup and send
         $mail = new PHPMailer;
         //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->isSMTP();
@@ -260,42 +225,7 @@ function denunciaNonAuto($post, $files, $currentid, $conn, $mail_username, $mail
         ';
         $headers = 'From: ' . $fromname . '<' . $email . '>';
 
-
-        /*$boundary = uniqid();
-
-        // header information
-        $headers = "From: $from\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: multipart/mixed; boundary=\".$boundary.\"\r\n";
-
-        // attachment
-        $attachment = chunk_split(base64_encode(file_get_contents($attachment_file)));
-
-        // message with attachment
-        $message = "--" . $boundary . "\r\n";
-        $message .= "Content-Type: text/plain; charset=UTF-8\r\n";
-        $message .= "Content-Transfer-Encoding: base64\r\n\r\n";
-        $message .= chunk_split(base64_encode($message));
-        $message .= "--" . $boundary . "\r\n";
-        $message .= "Content-Type: application/octet-stream; name=\"file.pdf\"\r\n";
-        $message .= "Content-Transfer-Encoding: base64\r\n";
-        $message .= "Content-Disposition: attachment; filename=\"file.pdf\"\r\n\r\n";
-        $message .= $attachment . "\r\n";
-        $message .= "--" . $boundary . "--";
-
-        // send email
-        if (mail(
-            $to,
-            $subject,
-            $message,
-            $headers
-        )) {
-            echo "Email with attachment sent successfully.";
-        } else {
-            echo "Failed to send email with attachment.";
-        }*/
-
-
+        // PHPMailer setup and send
         $mail = new PHPMailer;
         //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->isSMTP();
