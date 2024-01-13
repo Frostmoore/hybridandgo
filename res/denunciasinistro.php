@@ -11,12 +11,14 @@ if (!isset($_POST['agenzia_id_auto']) && !isset($_POST['agenzia_id_nonauto'])) {
     die('Accesso Negato');
 }
 
+// Main.Run()
 if (isset($_POST['agenzia_id_auto'])) {
-    denunciaAuto($_POST, $_FILES, $currentid, $conn);
+    denunciaAuto($_POST, $_FILES, $currentid, $con);
 } else {
-    denunciaNonAuto($_POST, $_FILES, $currentid, $conn);
+    denunciaNonAuto($_POST, $_FILES, $currentid, $con);
 }
 
+// Func denuncia sinistro AUTO
 function denunciaAuto($post, $files, $currentid, $conn)
 {
     // Gestione $_POST e creazione variabili
@@ -81,16 +83,18 @@ function denunciaAuto($post, $files, $currentid, $conn)
         $zip->close();
         //var_dump($zip_file_name);
 
+        // DB Call
         $privacy = $_POST['checkbox_privacy_auto'];
 
         $stmt = $conn->prepare("INSERT INTO SINISTRI (id, id_agenzia, nome_denuncia, tipo_sinistro, email_denuncia, documenti_denuncia, data_denuncia, descrizione_denuncia, privacy_denuncia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssssss", $currentid, $agenzia_id, $nome, $tipo, $email, $zip_file_name, $data_denuncia, $descrizione, $privacy);
         $stmt->execute();
         $stmt->close();
-        header('refresh=0; url=success.html');
+        header('refresh=1; url=./success.html');
     }
 }
 
+// Func denuncia sinistro NON AUTO
 function denunciaNonAuto($post, $files, $currentid, $conn)
 {
     // Gestione $_POST e creazione variabili
@@ -134,12 +138,13 @@ function denunciaNonAuto($post, $files, $currentid, $conn)
         $zip->close();
         //var_dump($zip_file_name);
 
+        // DB Call
         $privacy = $_POST['checkbox_privacy_nonauto'];
 
         $stmt = $conn->prepare("INSERT INTO SINISTRI (id, id_agenzia, nome_denuncia, tipo_sinistro, email_denuncia, documenti_denuncia, data_denuncia, descrizione_denuncia, privacy_denuncia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssssss", $currentid, $agenzia_id, $nome, $tipo, $email, $zip_file_name, $data_denuncia, $descrizione, $privacy);
         $stmt->execute();
         $stmt->close();
-        header('refresh=0; url=success.html');
+        header('refresh=1; url=./success.html');
     }
 }
