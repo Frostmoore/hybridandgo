@@ -100,7 +100,6 @@ function denunciaAuto($post, $files, $currentid, $conn, $mail_username, $mail_pa
         $stmt->bind_param("sssssssss", $currentid, $agenzia_id, $nome, $tipo, $email, $zip_file_name, $data_denuncia, $descrizione, $privacy);
         $stmt->execute();
         $stmt->close();
-        header('refresh=1; url=./success.html');
 
         // Send e-mail
         $to = $denuncia_mail;
@@ -148,7 +147,7 @@ function denunciaAuto($post, $files, $currentid, $conn, $mail_username, $mail_pa
         if (!$mail->send()) {
             echo "Errore PHPMailer: " . $mail->ErrorInfo;
         } else {
-            echo "Mail Inviata con successo!";
+            header('refresh=1; url=./success.html');
         }
     }
 }
@@ -253,7 +252,7 @@ function denunciaNonAuto($post, $files, $currentid, $conn, $mail_username, $mail
         if (!$mail->send()) {
             echo "Errore PHPMailer: " . $mail->ErrorInfo;
         } else {
-            echo "Mail Inviata con successo!";
+            header('refresh=1; url=./success.html');
         }
     }
 }

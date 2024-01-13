@@ -193,6 +193,7 @@ $agenzia_id = $_GET['id'];
     var nerrore = $("#nerrore");
     var nh2_errore = $("#nh2_errore");
     var np_errore = $("#np_errore");
+    var validRegex = new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$");
 
 
     // campi auto
@@ -255,6 +256,9 @@ $agenzia_id = $_GET['id'];
             } else if (!checkbox_privacy_auto[0].checked) {
                 errore.removeClass("a_hidden").fadeIn();
                 p_errore[0].innerHTML = "Per proseguire, devi accettare la liberatoria privacy";
+            } else if (!email_denuncia_auto[0].value.match(validRegex)) {
+                errore.removeClass("a_hidden").fadeIn();
+                p_errore[0].innerHTML = "Inserisci un indirizzo e-mail valido";
             } else {
                 form_auto.submit();
             }
