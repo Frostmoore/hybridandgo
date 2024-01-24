@@ -288,7 +288,7 @@ $nome_app = $_POST["nome_app"];
 $nome_agenzia = $_POST["nome_agenzia"];
 //$logo_agenzia = $_POST["logo_agenzia"];
 //$header_agenzia = $_POST["header_agenzia"];
-$colori = $_POST["colori"];
+//$colori = $_POST["colori"];
 // Sezione 2
 $facebook_agenzia = $_POST["facebook_agenzia"];
 $instagram_agenzia = $_POST["instagram_agenzia"];
@@ -314,15 +314,20 @@ $notifica_link = $_POST["notifica_link"];
 // Sezione 5
 //$contatti_immagine = $_POST["contatti_immagine"];
 $contatti_titolo = $_POST["contatti_titolo"];
-$contatti_testo = $_POST["contatti_testo"];
+//$contatti_testo = $_POST["contatti_testo"];
 $numeri_utili_labels = $_POST["numeri_utili_labels"];
 $numeri_utili_colori = $_POST["numeri_utili_colori"];
-$numeri_utili_link = $_POST["numeri_utili_link"];
+$numeri_utili_salute = $_POST["numeri_utili_salute"];
+$numeri_utili_assistenza = $_POST["numeri_utili_assistenza"];
+$numeri_utili_noleggio = $_POST["numeri_utili_noleggio"];
 // Sezione 6
 //$denuncia_immagine = $_POST["denuncia_immagine"];
 $denuncia_titolo = $_POST["denuncia_titolo"];
-$denuncia_testo = $_POST["denuncia_testo"];
+//$denuncia_testo = $_POST["denuncia_testo"];
 $denuncia_testo_grassetto = $_POST["denuncia_testo_grassetto"];
+//$preventivo_immagine = $_POST["preventivo_immagine"];
+$preventivo_titolo = $_POST["preventivo_titolo"];
+$preventivo_testo_grassetto = $_POST["preventivo_testo_grassetto"];
 // Sezione 7
 $quick_telefono = $_POST["quick_telefono"];
 $quick_whatsapp = $_POST["quick_whatsapp"];
@@ -334,8 +339,8 @@ $denuncia_mail = $_POST['denuncia_mail'];
 //$token = generateRandomString();
 
 // DB INSERTS
-$stmt = $con->prepare("UPDATE agenzie_new SET nome_app=?, nome_agenzia=?, colori=?, facebook_agenzia=?, instagram_agenzia=?, linkedin_agenzia=?, google_agenzia=?, sito_agenzia=?, info_titolo=?, info_nomi_sedi=?, info_indirizzi_sedi=?, info_testo_orari=?, info_orari_sedi=?, info_recensioni_sedi=?, info_telefono_sedi=?, info_email_sedi=?, info_mappa_sedi=?, info_sito_sedi=?, notifica_titolo=?, notifica_testo=?, notifica_link=?, contatti_titolo=?, contatti_testo=?, numeri_utili_labels=?, numeri_utili_colori=?, numeri_utili_link=?, denuncia_titolo=?, denuncia_testo=?, denuncia_testo_grassetto=?, quick_telefono=?, quick_whatsapp=?, quick_email=?, denuncia_mail=? WHERE id=?");
-$stmt->bind_param("ssssssssssssssssssssssssssssssssss", $nome_app, $nome_agenzia, $colori, $facebook_agenzia, $instagram_agenzia, $linkedin_agenzia, $google_agenzia, $sito_agenzia, $info_titolo, $info_nomi_sedi, $info_indirizzi_sedi, $info_testo_orari, $info_orari_sedi, $info_recensioni_sedi, $info_telefono_sedi, $info_email_sedi, $info_mappa_sedi, $info_sito_sedi, $notifica_titolo, $notifica_testo, $notifica_link, $contatti_titolo, $contatti_testo, $numeri_utili_labels, $numeri_utili_colori, $numeri_utili_link, $denuncia_titolo, $denuncia_testo, $denuncia_testo_grassetto, $quick_telefono, $quick_whatsapp, $quick_email, $denuncia_mail, $currentid);
+$stmt = $con->prepare("UPDATE agenzie_new SET nome_app=?, nome_agenzia=?, colori=?, facebook_agenzia=?, instagram_agenzia=?, linkedin_agenzia=?, google_agenzia=?, sito_agenzia=?, info_titolo=?, info_nomi_sedi=?, info_indirizzi_sedi=?, info_testo_orari=?, info_orari_sedi=?, info_recensioni_sedi=?, info_telefono_sedi=?, info_email_sedi=?, info_mappa_sedi=?, info_sito_sedi=?, notifica_titolo=?, notifica_testo=?, notifica_link=?, contatti_titolo=?, numeri_utili_labels=?, numeri_utili_colori=?, numeri_utili_salute=?, numeri_utili_assistenza=?, numeri_utili_noleggio=?, denuncia_titolo=?, denuncia_testo_grassetto=?, preventivo_titolo=?, preventivo_testo_grassetto=?, quick_telefono=?, quick_whatsapp=?, quick_email=?, denuncia_mail=? WHERE id=?");
+$stmt->bind_param("ssssssssssssssssssssssssssssssssssss", $nome_app, $nome_agenzia, $colori, $facebook_agenzia, $instagram_agenzia, $linkedin_agenzia, $google_agenzia, $sito_agenzia, $info_titolo, $info_nomi_sedi, $info_indirizzi_sedi, $info_testo_orari, $info_orari_sedi, $info_recensioni_sedi, $info_telefono_sedi, $info_email_sedi, $info_mappa_sedi, $info_sito_sedi, $notifica_titolo, $notifica_testo, $notifica_link, $contatti_titolo, $numeri_utili_labels, $numeri_utili_colori, $numeri_utili_salute, $numeri_utili_assistenza, $numeri_utili_noleggio, $denuncia_titolo, $denuncia_testo_grassetto, $preventivo_titolo, $preventivo_testo_grassetto, $quick_telefono, $quick_whatsapp, $quick_email, $denuncia_mail, $currentid);
 $stmt->execute();
 $stmt->close();
 //$con->close();

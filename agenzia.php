@@ -70,21 +70,6 @@ $agenzia = $result->fetch_assoc();
                         <input type="text" class="form-control" id="nome_agenzia" name="nome_agenzia" value="<?= $agenzia['nome_agenzia']; ?>">
                         <small id=" nomeagenziahelp" class="form-text text-muted">Questo sarà il nome utilizzato per l'Agenzia</small>
                     </div>
-                    <div class="mb-3">
-                        <label for="logo_agenzia" class="form-label">Logo dell'Agenzia</label>
-                        <input class="form-control" type="file" id="logo_agenzia" name="logo_agenzia">
-                        <small id="logo_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione 1024x1024x7MB.</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="header_agenzia" class="form-label">Cover dell'Agenzia</label>
-                        <input class="form-control" type="file" id="header_agenzia" name="header_agenzia">
-                        <small id="header_agenziahelp" class="form-text text-muted">Carica un solo file .png di dimensione massima 2400x1256x14MB.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="colori">Colori</label>
-                        <input type="text" class="form-control" id="colori" name="colori" value="<?= $agenzia['colori']; ?>">
-                        <small id=" nomeagenziahelp" class="form-text text-muted">Inserisci tre colori, separati da un |, nel formato 0xffffffff</small>
-                    </div>
                     <div class="rowbottone">
                         <button type="button" class="bottone_next" id="bottone1" onclick="muovitiAvanti('1')">AVANTI</button>
                     </div>
@@ -127,11 +112,6 @@ $agenzia = $result->fetch_assoc();
                         <label for="info_titolo">Titolo della sezione Info</label>
                         <input type="text" class="form-control" id="info_titolo" name="info_titolo" value="<?= $agenzia['info_titolo']; ?>">
                         <small id="info_titolohelp" class="form-text text-muted">Questo sarà il titolo della sezione Info dell'Applicazione</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="info_immagine" class="form-label">Immagine di fondo del Titolo della sezione Info</label>
-                        <input class="form-control" type="file" id="info_immagine" name="info_immagine">
-                        <small id="info_immaginehelp" class="form-text text-muted">Carica un solo file .png delle dimensioni che preferisci, ma con un rapporto di 6:1.</small>
                     </div>
                     <div class="form-group">
                         <label for="info_nomi_sedi">Nomi delle varie Sedi</label>
@@ -207,20 +187,10 @@ $agenzia = $result->fetch_assoc();
                 </div>
                 <div class="step5 a_hidden" id="step5">
                     <h2>Step n. 5: Sezione Contatti e Numeri Utili</h2>
-                    <div class="mb-3">
-                        <label for="contatti_immagine" class="form-label">Immagine di fondo della sezione Contatti</label>
-                        <input class="form-control" type="file" id="contatti_immagine" name="contatti_immagine">
-                        <small id="contatti_immaginehelp" class="form-text text-muted">Carica un solo file .png delle dimensioni che preferisci, ma con un rapporto di 6:1.</small>
-                    </div>
                     <div class="form-group">
                         <label for="contatti_titolo">Inserisci il titolo della sezione Contatti</label>
                         <input type="text" class="form-control" id="contatti_titolo" name="contatti_titolo" value="<?= $agenzia['contatti_titolo']; ?>">
                         <small id="contatti_titolohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="contatti_testo">Inserisci il testo da riportare nella sezione Contatti</label>
-                        <input type="textarea" class="form-control" id="contatti_testo" name="contatti_testo" value="<?= $agenzia['contatti_testo']; ?>">
-                        <small id="contatti_testohelp" class="form-text text-muted">Puoi andare a capo utilizzando la shortcut "\n"</small>
                     </div>
                     <div class="form-group">
                         <label for="numeri_utili_labels">Inserisci i testi da riportare sui pulsanti dei numeri utili</label>
@@ -233,9 +203,19 @@ $agenzia = $result->fetch_assoc();
                         <small id="numeri_utili_colorihelp" class="form-text text-muted">Inserisci i colori di ciascun pulsante, separandoli con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio. I colori dovranno essere espressi nel formato 0xffffffff</small>
                     </div>
                     <div class="form-group">
-                        <label for="numeri_utili_link">Inserisci i link di ciascun tasto</label>
-                        <input type="text" class="form-control" id="numeri_utili_link" name="numeri_utili_link" value="<?= $agenzia['numeri_utili_link']; ?>">
-                        <small id="numeri_utili_linkhelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio. I numeri dovranno essere espressi nel formato internazionale (+393333333333)</small>
+                        <label for="numeri_utili_salute">Inserisci i numeri di "Salute"</label>
+                        <input type="text" class="form-control" id="numeri_utili_salute" name="numeri_utili_salute" value="<?= $agenzia['numeri_utili_salute']; ?>">
+                        <small id="numeri_utili_salutehelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un |</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="numeri_utili_assistenza">Inserisci i numeri di "Assistenza Stradale"</label>
+                        <input type="text" class="form-control" id="numeri_utili_assistenza" name="numeri_utili_assistenza" value="<?= $agenzia['numeri_utili_assistenza']; ?>">
+                        <small id="numeri_utili_assistenzahelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un |</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="numeri_utili_noleggio">Inserisci i numeri di "Noleggio Auto"</label>
+                        <input type="text" class="form-control" id="numeri_utili_noleggio" name="numeri_utili_noleggio" value="<?= $agenzia['numeri_utili_noleggio']; ?>">
+                        <small id="numeri_utili_noleggiohelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un |</small>
                     </div>
                     <div class="rowbottone">
                         <button type="button" class="bottone_previous" id="indietro5" onclick="muovitiIndietro('5')">INDIETRO</button>
@@ -244,11 +224,11 @@ $agenzia = $result->fetch_assoc();
                 </div>
                 <div class="step6 a_hidden" id="step6">
                     <h2>Step n. 6: Sezione "Denuncia un Sinistro"</h2>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="denuncia_immagine" class="form-label">Immagine di fondo della sezione "Denuncia un Sinistro"</label>
                         <input class="form-control" type="file" id="denuncia_immagine" name="denuncia_immagine">
                         <small id="denuncia_immaginehelp" class="form-text text-muted">Carica un solo file .png delle dimensioni che preferisci, ma con un rapporto di 6:1.</small>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="denuncia_titolo">Inserisci il titolo della sezione "Denuncia un Sinistro"</label>
                         <input type="text" class="form-control" id="denuncia_titolo" name="denuncia_titolo" value="<?= $agenzia['denuncia_titolo']; ?>">
@@ -260,9 +240,14 @@ $agenzia = $result->fetch_assoc();
                         <small id="denuncia_testo_grassettohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
                     </div>
                     <div class="form-group">
-                        <label for="denuncia_testo">Inserisci il testo della sezione "Denuncia un Sinistro"</label>
-                        <input type="textarea" class="form-control" id="denuncia_testo" name="denuncia_testo" value="<?= $agenzia['denuncia_testo']; ?>">
-                        <small id="denuncia_testohelp" class="form-text text-muted">Il testo apparirà sotto il titolo</small>
+                        <label for="preventivo_titolo">Inserisci il titolo della sezione "Preventivo"</label>
+                        <input type="text" class="form-control" id="preventivo_titolo" name="preventivo_titolo" value="<?= $agenzia['preventivo_titolo']; ?>">
+                        <small id="preventivo_titolohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="preventivo_testo_grassetto">Inserisci il testo in grassetto della sezione "Preventivo"</label>
+                        <input type="text" class="form-control" id="preventivo_testo_grassetto" name="preventivo_testo_grassetto" value="<?= $agenzia['preventivo_testo_grassetto']; ?>">
+                        <small id="preventivo_testo_grassettohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
                     </div>
                     <div class="rowbottone">
                         <button type="button" class="bottone_previous" id="indietro6" onclick="muovitiIndietro('6')">INDIETRO</button>
