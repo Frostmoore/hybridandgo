@@ -215,10 +215,21 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="numeri_utili_colorihelp" class="form-text text-muted">Inserisci i colori di ciascun pulsante, separandoli con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio. I colori dovranno essere espressi nel formato 0xffffffff</small>
                         </div>
                         <div class="form-group">
-                            <label for="numeri_utili_link">Inserisci i link di ciascun tasto</label>
-                            <input type="text" class="form-control" id="numeri_utili_link" name="numeri_utili_link" placeholder="Link pulsanti numeri utili">
-                            <small id="numeri_utili_linkhelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio. I numeri dovranno essere espressi nel formato internazionale (+393333333333)</small>
+                            <label for="numeri_utili_salute">Inserisci i numeri di "Salute"</label>
+                            <input type="text" class="form-control" id="numeri_utili_salute" name="numeri_utili_salute" placeholder="Link pulsanti numeri utili">
+                            <small id="numeri_utili_salutehelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un |</small>
                         </div>
+                        <div class="form-group">
+                            <label for="numeri_utili_assistenza">Inserisci i numeri di "Assistenza Stradale"</label>
+                            <input type="text" class="form-control" id="numeri_utili_assistenza" name="numeri_utili_assistenza" placeholder="Link pulsanti numeri utili">
+                            <small id="numeri_utili_assistenzahelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un |</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeri_utili_noleggio">Inserisci i numeri di "Noleggio Auto"</label>
+                            <input type="text" class="form-control" id="numeri_utili_noleggio" name="numeri_utili_noleggio" placeholder="Link pulsanti numeri utili">
+                            <small id="numeri_utili_noleggiohelp" class="form-text text-muted">Inserisci i link di ciascun pulsante, separandoli con un |</small>
+                        </div>
+
                         <div class="rowbottone">
                             <button type="button" class="bottone_previous" id="indietro5" onclick="muovitiIndietro('5')">INDIETRO</button>
                             <button type="button" class="bottone_next" id="bottone5" onclick="muovitiAvanti('5')">AVANTI</button>
@@ -241,10 +252,8 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="text" class="form-control" id="denuncia_testo_grassetto" name="denuncia_testo_grassetto" placeholder="Testo in grassetto">
                             <small id="denuncia_testo_grassettohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
                         </div>
-                        <div class="rowbottone">
-                            <button type="button" class="bottone_previous" id="indietro6" onclick="muovitiIndietro('6')">INDIETRO</button>
-                            <button type="button" class="bottone_next" id="bottone6" onclick="muovitiAvanti('6')">AVANTI</button>
-                        </div>
+
+
 
                         <div class="mb-3">
                             <label for="preventivo_immagine" class="form-label">Immagine di fondo della sezione "Preventivo"</label>
@@ -261,6 +270,8 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="text" class="form-control" id="preventivo_testo_grassetto" name="preventivo_testo_grassetto" placeholder="Testo in grassetto">
                             <small id="preventivo_testo_grassettohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
                         </div>
+
+
                         <div class="rowbottone">
                             <button type="button" class="bottone_previous" id="indietro6" onclick="muovitiIndietro('6')">INDIETRO</button>
                             <button type="button" class="bottone_next" id="bottone6" onclick="muovitiAvanti('6')">AVANTI</button>

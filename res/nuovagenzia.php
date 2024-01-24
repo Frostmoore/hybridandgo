@@ -8,7 +8,7 @@ if (!isset($_SESSION['loggedin'])) {
 require_once "conn.php";
 
 // Fetch the id of the latest entry in agenzie.
-$sqlid = "SELECT MAX(id) FROM agenzie";
+$sqlid = "SELECT MAX(id) FROM agenzie_new";
 $result = $con->query($sqlid);
 $row = $result->fetch_array();
 
@@ -131,7 +131,7 @@ if (!isset($_FILES["header_agenzia"])) {
 
 // Upload Immagine Info
 if (!isset($_FILES["info_immagine"])) {
-    die("Non è stato caricato alcun file nel capo Cover. La Cover è un elemento obbligatorio.");
+    die("Non è stato caricato alcun file nel capo Info. La Info è un elemento obbligatorio.");
 } else {
 
     // Define Variables
@@ -177,7 +177,7 @@ if (!isset($_FILES["info_immagine"])) {
 
 // Upload Immagine Contatti
 if (!isset($_FILES["contatti_immagine"])) {
-    die("Non è stato caricato alcun file nel capo Cover. La Cover è un elemento obbligatorio.");
+    die("Non è stato caricato alcun file nel capo Contatti. La Contatti è un elemento obbligatorio.");
 } else {
 
     // Define Variables
@@ -223,7 +223,7 @@ if (!isset($_FILES["contatti_immagine"])) {
 
 // Upload Immagine Denuncia Sinistro
 if (!isset($_FILES["denuncia_immagine"])) {
-    die("Non è stato caricato alcun file nel capo Cover. La Cover è un elemento obbligatorio.");
+    die("Non è stato caricato alcun file nel capo Denuncia. La Denuncia è un elemento obbligatorio.");
 } else {
 
     // Define Variables
@@ -267,10 +267,56 @@ if (!isset($_FILES["denuncia_immagine"])) {
     }
 }
 
+// Upload Immagine Richiesta Preventivo
+if (!isset($_FILES["preventivo_immagine"])) {
+    die("Non è stato caricato alcun file nel campo Immagine Preventivo. L'immagine preventivo' è un elemento obbligatorio.");
+} else {
+
+    // Define Variables
+    $preventivo_immaginePath = $_FILES["preventivo_immagine"]["tmp_name"];
+    $preventivo_immagineDimensions = @getimagesize($preventivo_immaginePath);
+    $preventivo_immagineWidth = $preventivo_immagineDimensions[0];
+    $preventivo_immagineHeight = $preventivo_immagineDimensions[1];
+    $preventivo_immagineSize = filesize($preventivo_immaginePath);
+    $preventivo_immagineInfo = finfo_open(FILEINFO_MIME_TYPE);
+    $preventivo_immagineType = finfo_file($preventivo_immagineInfo, $preventivo_immaginePath);
+
+    // Check File Size
+    if ($preventivo_immagineSize === 0) {
+        die("Il file Immagine preventivo è vuoto.");
+    } elseif ($preventivo_immagineSize > 16145728) {
+        die("La Immagine preventivo che hai caricato è troppo pesante. Max 14MB.");
+    }
+
+    // Check File Type
+    if (!in_array($preventivo_immagineType, $allowedTypes)) {
+        die("Questo tipo di file non è consentito per la Immagine preventivo.");
+    }
+
+    // Check File Dimensions
+    if ($preventivo_immagineWidth > 2400) {
+        die("La tua Immagine preventivo è troppo larga.");
+    }
+
+    if ($preventivo_immagineHeight > 1256) {
+        die("La tua Immagine preventivo è troppo alta.");
+    }
+
+    // Upload File
+    if ($_FILES["preventivo_immagine"]["error"] > 0) {
+        echo "Error: " . $_FILES["preventivo_immagine"]["error"] . "<br />";
+    } else {
+        move_uploaded_file($_FILES["preventivo_immagine"]["tmp_name"], $dir . "preventivo_immagine.png");
+
+        /* PATH TO Immagine preventivo Sinistroe */
+        $preventivo_immagine = $dir . "preventivo_immagine.png";
+    }
+}
+
 // Generate API Key
 function generateRandomString($length = 10)
 {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?^!ç°§*|';
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?|';
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
@@ -321,15 +367,19 @@ $notifica_link = $_POST["notifica_link"];
 // Sezione 5
 //$contatti_immagine = $_POST["contatti_immagine"];
 $contatti_titolo = $_POST["contatti_titolo"];
-$contatti_testo = $_POST["contatti_testo"];
+//$contatti_testo = $_POST["contatti_testo"];
 $numeri_utili_labels = $_POST["numeri_utili_labels"];
 $numeri_utili_colori = $_POST["numeri_utili_colori"];
-$numeri_utili_link = $_POST["numeri_utili_link"];
+$numeri_utili_salute = $_POST["numeri_utili_salute"];
+$numeri_utili_assistenza = $_POST["numeri_utili_assistenza"];
+$numeri_utili_noleggio = $_POST["numeri_utili_noleggio"];
 // Sezione 6
 //$denuncia_immagine = $_POST["denuncia_immagine"];
 $denuncia_titolo = $_POST["denuncia_titolo"];
-$denuncia_testo = $_POST["denuncia_testo"];
+//$denuncia_testo = $_POST["denuncia_testo"];
 $denuncia_testo_grassetto = $_POST["denuncia_testo_grassetto"];
+$preventivo_titolo = $_POST["preventivo_titolo"];
+$preventivo_testo_grassetto = $_POST["preventivo_testo_grassetto"];
 // Sezione 7
 $quick_telefono = $_POST["quick_telefono"];
 $quick_whatsapp = $_POST["quick_whatsapp"];
@@ -358,8 +408,8 @@ echo $cover . "</br>";
 echo $immagini . "</br>";*/
 
 // DB INSERTS
-$stmt = $con->prepare("INSERT INTO agenzie_new (id, nome_app, nome_agenzia, logo_agenzia, header_agenzia, colori, facebook_agenzia, instagram_agenzia, linkedin_agenzia, google_agenzia, sito_agenzia, info_titolo, info_immagine, info_nomi_sedi, info_indirizzi_sedi, info_testo_orari, info_orari_sedi, info_recensioni_sedi, info_telefono_sedi, info_email_sedi, info_mappa_sedi, info_sito_sedi, notifica_titolo, notifica_testo, notifica_link, contatti_immagine, contatti_titolo, contatti_testo, numeri_utili_labels, numeri_utili_colori, numeri_utili_link, denuncia_immagine, denuncia_titolo, denuncia_testo, denuncia_testo_grassetto, quick_telefono, quick_whatsapp, quick_email, attiva, token, denuncia_mail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("sssssssssssssssssssssssssssssssssssssssss", $currentid, $nome_app, $nome_agenzia, $logo_agenzia, $header_agenzia, $colori, $facebook_agenzia, $instagram_agenzia, $linkedin_agenzia, $google_agenzia, $sito_agenzia, $info_titolo, $info_immagine, $info_nomi_sedi, $info_indirizzi_sedi, $info_testo_orari, $info_orari_sedi, $info_recensioni_sedi, $info_telefono_sedi, $info_email_sedi, $info_mappa_sedi, $info_sito_sedi, $notifica_titolo, $notifica_testo, $notifica_link, $contatti_immagine, $contatti_titolo, $contatti_testo, $numeri_utili_labels, $numeri_utili_colori, $numeri_utili_link, $denuncia_immagine, $denuncia_titolo, $denuncia_testo, $denuncia_testo_grassetto, $quick_telefono, $quick_whatsapp, $quick_email, $attiva, $token, $denuncia_mail);
+$stmt = $con->prepare("INSERT INTO agenzie_new (id, nome_app, nome_agenzia, logo_agenzia, header_agenzia, colori, facebook_agenzia, instagram_agenzia, linkedin_agenzia, google_agenzia, sito_agenzia, info_titolo, info_immagine, info_nomi_sedi, info_indirizzi_sedi, info_testo_orari, info_orari_sedi, info_recensioni_sedi, info_telefono_sedi, info_email_sedi, info_mappa_sedi, info_sito_sedi, notifica_titolo, notifica_testo, notifica_link, contatti_immagine, contatti_titolo, numeri_utili_labels, numeri_utili_colori, numeri_utili_salute, numeri_utili_assistenza, numeri_utili_noleggio, denuncia_immagine, preventivo_immagine, preventivo_titolo, preventivo_testo_grassetto, denuncia_titolo, denuncia_testo_grassetto, quick_telefono, quick_whatsapp, quick_email, attiva, token, denuncia_mail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssssssssssssssssssssssssssssssssssssssssss", $currentid, $nome_app, $nome_agenzia, $logo_agenzia, $header_agenzia, $colori, $facebook_agenzia, $instagram_agenzia, $linkedin_agenzia, $google_agenzia, $sito_agenzia, $info_titolo, $info_immagine, $info_nomi_sedi, $info_indirizzi_sedi, $info_testo_orari, $info_orari_sedi, $info_recensioni_sedi, $info_telefono_sedi, $info_email_sedi, $info_mappa_sedi, $info_sito_sedi, $notifica_titolo, $notifica_testo, $notifica_link, $contatti_immagine, $contatti_titolo, $numeri_utili_labels, $numeri_utili_colori, $numeri_utili_salute, $numeri_utili_assistenza, $numeri_utili_noleggio, $denuncia_immagine, $preventivo_immagine, $preventivo_titolo, $preventivo_testo_grassetto, $denuncia_titolo, $denuncia_testo_grassetto, $quick_telefono, $quick_whatsapp, $quick_email, $attiva, $token, $denuncia_mail);
 $stmt->execute();
 $stmt->close();
 //$con->close();

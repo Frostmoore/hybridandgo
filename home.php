@@ -49,6 +49,7 @@ include_once "res/fetchagenzie.php";
                                 <h2><?= $agenzia["nome_agenzia"]; ?></h2>
                                 <!--ID-->
                                 <p>ID: <strong><?= $agenzia["id"]; ?></strong></p>
+                                <p>TOKEN: <strong><?= $agenzia["token"]; ?></strong></p>
                             </div>
                             <div class="info-compressed">
                                 <a href="agenzia.php?id=<?= $agenzia["id"] ?>"><button type="button" class="btn btn-outline-danger">Modifica Dati</button></a>

@@ -10,7 +10,7 @@ require 'PHPMailer/src/SMTP.php';
 
 include_once 'conn.php';
 
-$sqlid = "SELECT MAX(id) FROM sinistri";
+$sqlid = "SELECT MAX(id) FROM preventivi";
 $result = $con->query($sqlid);
 $row = $result->fetch_array();
 $latestid = $row[0];
@@ -62,7 +62,7 @@ function richiestaPreventivo($post, $files, $currentid, $conn, $mail_username, $
         // DB Call
         $privacy = $_POST['checkbox_privacy_preventivo'];
 
-        $stmt = $conn->prepare("INSERT INTO SINISTRI (id, id_agenzia, nome_denuncia, email_denuncia, documenti_denuncia, data_denuncia, descrizione_denuncia, privacy_denuncia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO preventivi (id, id_agenzia, nome_denuncia, email_denuncia, documenti_denuncia, data_denuncia, descrizione_denuncia, privacy_denuncia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssssss", $currentid, $agenzia_id, $nome, $email, $zip_file_name, $data_denuncia, $descrizione, $privacy);
         $stmt->execute();
         $stmt->close();
