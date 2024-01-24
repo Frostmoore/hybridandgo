@@ -15,24 +15,6 @@ if ($result->num_rows > 0) {
         $agenzia = $row;
     }
 }
-
-if (!isset($_GET['token'])) {
-    die('Accesso non consentito');
-} else {
-    if ($_GET['token'] != $agenzia['token']) {
-        die('Accesso non consentito');
-    }
-}
-
-if (!isset($_GET['token'])) {
-    die('Accesso non consentito');
-} else {
-    if ($_GET['token'] != $agenzia['token']) {
-        die('Accesso non consentito');
-    }
-}
-
-$token = $_GET['token'];
 $agenzia_id = $_GET['id'];
 ?>
 <html>
@@ -163,6 +145,7 @@ $agenzia_id = $_GET['id'];
                         <label for="checkbox_privacy_nonauto" class="label_privacy">Do il consenso<span style="color: red;">*</span></label><br>
                     </div>
                     <input type="text" class="a_hidden" name="agenzia_id_nonauto" id="agenzia_id_nonauto" value="<?= $agenzia_id; ?>">
+                    <input type="text" class="a_hidden" name="agenzia_token_nonauto" id="agenzia_token_nonauto" value="<?= $agenzia['token']; ?>">
                     <input type="text" class="a_hidden" name="denuncia_mail_nonauto" id="denuncia_mail_nonauto" value="<?= $agenzia['denuncia_mail']; ?>">
                     <div class="errore a_hidden" id="nerrore">
                         <h2 id="nh2_errore">ATTENZIONE!</h2>

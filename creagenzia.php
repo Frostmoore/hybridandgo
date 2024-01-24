@@ -127,7 +127,7 @@ if (!isset($_SESSION['loggedin'])) {
                         </div>
                         <div class="form-group">
                             <label for="info_indirizzi_sedi">Indirizzi delle varie Sedi</label>
-                            <input type="text" class="form-control" id="info_indirizzi_sedi" name="info_indirizzi_sedi" placeholder="Inserisci gli indirizzi delle varie sedi dell'Agenzia">
+                            <textarea class="form-control" id="info_indirizzi_sedi" name="info_indirizzi_sedi" placeholder="Inserisci gli indirizzi delle varie sedi dell'Agenzia"></textarea>
                             <small id="info_indirizzi_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
                         </div>
                         <div class="form-group">
@@ -137,32 +137,32 @@ if (!isset($_SESSION['loggedin'])) {
                         </div>
                         <div class="form-group">
                             <label for="info_orari_sedi">Orari di apertura delle varie Sedi</label>
-                            <input type="textarea" class="form-control" id="info_orari_sedi" name="info_orari_sedi" placeholder="Inserisci gli orari di apertura delle varie sedi dell'Agenzia">
+                            <textarea class="form-control" id="info_orari_sedi" name="info_orari_sedi" placeholder="Inserisci gli orari di apertura delle varie sedi dell'Agenzia"></textarea>
                             <small id="info_orari_sedihelp" class="form-text text-muted">Separa gli orari usando un |, se vuoi andare a capo potrai usare la shortcut "\n"</small>
                         </div>
                         <div class="form-group">
                             <label for="info_recensioni_sedi">Link per la recensione delle sedi</label>
-                            <input type="text" class="form-control" id="info_recensioni_sedi" name="info_recensioni_sedi" placeholder="Inserisci il link a cui rimanderà il tasto 'lascia una recensione'">
+                            <textarea class="form-control" id="info_recensioni_sedi" name="info_recensioni_sedi" placeholder="Inserisci il link a cui rimanderà il tasto 'lascia una recensione'"></textarea>
                             <small id="info_recensioni_sedihelp" class="form-text text-muted">Separa i link usando un |</small>
                         </div>
                         <div class="form-group">
                             <label for="info_telefono_sedi">Numeri di Telefono delle varie sedi</label>
-                            <input type="text" class="form-control" id="info_telefono_sedi" name="info_telefono_sedi" placeholder="Inserisci il numero di telefono delle varie sedi">
+                            <textarea class="form-control" id="info_telefono_sedi" name="info_telefono_sedi" placeholder="Inserisci il numero di telefono delle varie sedi"></textarea>
                             <small id="info_telefono_sedihelp" class="form-text text-muted">Scrivilo nel formato internazionale (+393333333333). Separa i numeri usando un |</small>
                         </div>
                         <div class="form-group">
                             <label for="info_email_sedi">Indirizzi e-mail delle varie sedi</label>
-                            <input type="text" class="form-control" id="info_email_sedi" name="info_email_sedi" placeholder="Inserisci l'indirizzo e-mail delle varie sedi">
+                            <textarea class="form-control" id="info_email_sedi" name="info_email_sedi" placeholder="Inserisci l'indirizzo e-mail delle varie sedi"></textarea>
                             <small id="info_email_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
                         </div>
                         <div class="form-group">
                             <label for="info_mappa_sedi">Indirizzo Google Places delle varie sedi</label>
-                            <input type="text" class="form-control" id="info_mappa_sedi" name="info_mappa_sedi" placeholder="Inserisci l'indirizzo Google Places delle varie sedi">
+                            <textarea class="form-control" id="info_mappa_sedi" name="info_mappa_sedi" placeholder="Inserisci l'indirizzo Google Places delle varie sedi"></textarea>
                             <small id="info_mappa_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
                         </div>
                         <div class="form-group">
                             <label for="info_sito_sedi">Indirizzo web delle varie sedi</label>
-                            <input type="text" class="form-control" id="info_sito_sedi" name="info_sito_sedi" placeholder="Inserisci l'indirizzo web delle varie sedi">
+                            <textarea class="form-control" id="info_sito_sedi" name="info_sito_sedi" placeholder="Inserisci l'indirizzo web delle varie sedi"></textarea>
                             <small id="info_sito_sedihelp" class="form-text text-muted">Separa gli indirizzi usando un |</small>
                         </div>
                         <div class="rowbottone">
@@ -205,11 +205,6 @@ if (!isset($_SESSION['loggedin'])) {
                             <small id="contatti_titolohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
                         </div>
                         <div class="form-group">
-                            <label for="contatti_testo">Inserisci il testo da riportare nella sezione Contatti</label>
-                            <input type="textarea" class="form-control" id="contatti_testo" name="contatti_testo" placeholder="Testo Sezione Contatti">
-                            <small id="contatti_testohelp" class="form-text text-muted">Puoi andare a capo utilizzando la shortcut "\n"</small>
-                        </div>
-                        <div class="form-group">
                             <label for="numeri_utili_labels">Inserisci i testi da riportare sui pulsanti dei numeri utili</label>
                             <input type="text" class="form-control" id="numeri_utili_labels" name="numeri_utili_labels" placeholder="Testi pulsanti numeri utili">
                             <small id="numeri_utili_labelshelp" class="form-text text-muted">Inserisci l'etichetta di ciascun pulsante, separandole con un | e tenendo presente che l'ordine sarà il seguente: salute, assistenza stradale, noleggio</small>
@@ -246,10 +241,25 @@ if (!isset($_SESSION['loggedin'])) {
                             <input type="text" class="form-control" id="denuncia_testo_grassetto" name="denuncia_testo_grassetto" placeholder="Testo in grassetto">
                             <small id="denuncia_testo_grassettohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
                         </div>
+                        <div class="rowbottone">
+                            <button type="button" class="bottone_previous" id="indietro6" onclick="muovitiIndietro('6')">INDIETRO</button>
+                            <button type="button" class="bottone_next" id="bottone6" onclick="muovitiAvanti('6')">AVANTI</button>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="preventivo_immagine" class="form-label">Immagine di fondo della sezione "Preventivo"</label>
+                            <input class="form-control" type="file" id="preventivo_immagine" name="preventivo_immagine">
+                            <small id="preventivo_immaginehelp" class="form-text text-muted">Carica un solo file .png delle dimensioni che preferisci, ma con un rapporto di 6:1.</small>
+                        </div>
                         <div class="form-group">
-                            <label for="denuncia_testo">Inserisci il testo della sezione "Denuncia un Sinistro"</label>
-                            <input type="textarea" class="form-control" id="denuncia_testo" name="denuncia_testo" placeholder="Testo Sezione 'Denuncia un Sinistro'">
-                            <small id="denuncia_testohelp" class="form-text text-muted">Il testo apparirà sotto il titolo</small>
+                            <label for="preventivo_titolo">Inserisci il titolo della sezione "Preventivo"</label>
+                            <input type="text" class="form-control" id="preventivo_titolo" name="preventivo_titolo" placeholder="Titolo Sezione">
+                            <small id="preventivo_titolohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="preventivo_testo_grassetto">Inserisci il testo in grassetto della sezione "Preventivo"</label>
+                            <input type="text" class="form-control" id="preventivo_testo_grassetto" name="preventivo_testo_grassetto" placeholder="Testo in grassetto">
+                            <small id="preventivo_testo_grassettohelp" class="form-text text-muted">Il testo apparirà in grassetto</small>
                         </div>
                         <div class="rowbottone">
                             <button type="button" class="bottone_previous" id="indietro6" onclick="muovitiIndietro('6')">INDIETRO</button>
@@ -281,7 +291,7 @@ if (!isset($_SESSION['loggedin'])) {
                     <div class="step8 a_hidden" id="step8">
                         <h2>Ultimo Sep: Attivare l'agenzia</h2>
                         <div class="form-group">
-                            <label for="denuncia_mail">Inserisci l'email per le Denunce di Sinistro</label>
+                            <label for="denuncia_mail">Inserisci l'email per le Denunce di Sinistro e per le richiste di Preventivo</label>
                             <input type="text" class="form-control" id="denuncia_mail" name="denuncia_mail" placeholder="E-mail a per le denunce di sinistro">
                             <small id="denuncia_mailhelp" class="form-text text-muted"> </small>
                         </div>
