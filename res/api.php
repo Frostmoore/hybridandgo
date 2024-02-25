@@ -12,6 +12,7 @@ if (isset($_GET["id"]) && $_GET["id"] != "") {
         if ($result->num_rows > 0) {
             while ($rowkey = $result->fetch_assoc()) {
                 $token = $rowkey["token"];
+                echo $token;
             }
         }
 
@@ -22,50 +23,56 @@ if (isset($_GET["id"]) && $_GET["id"] != "") {
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     //$response["id"] = $row["id"];
-                    $response["nome_app"] = $row["nome_app"];
-                    $response["nome_agenzia"] = $row["nome_agenzia"];
-                    $response["logo_agenzia"] = $row["logo_agenzia"];
-                    $response["header_agenzia"] = $row["header_agenzia"];
-                    $response["colori"] = $row["colori"];
-                    $response["facebook_agenzia"] = $row["facebook_agenzia"];
-                    $response["instagram_agenzia"] = $row["instagram_agenzia"];
-                    $response["linkedin_agenzia"] = $row["linkedin_agenzia"];
-                    $response["google_agenzia"] = $row["google_agenzia"];
-                    $response["sito_agenzia"] = $row["sito_agenzia"];
-                    $response["info_titolo"] = $row["info_titolo"];
-                    $response["info_immagine"] = $row["info_immagine"];
-                    $response["info_nomi_sedi"] = $row["info_nomi_sedi"];
-                    $response["info_indirizzi_sedi"] = $row["info_indirizzi_sedi"];
-                    $response["info_testo_orari"] = $row["info_testo_orari"];
-                    $response["info_orari_sedi"] = $row["info_orari_sedi"];
-                    $response["info_recensioni_sedi"] = $row["info_recensioni_sedi"];
-                    $response["info_telefono_sedi"] = $row["info_telefono_sedi"];
-                    $response["info_email_sedi"] = $row["info_email_sedi"];
-                    $response["info_mappa_sedi"] = $row["info_mappa_sedi"];
-                    $response["info_sito_sedi"] = $row["info_sito_sedi"];
-                    $response["notifica_titolo"] = $row["notifica_titolo"];
-                    $response["notifica_testo"] = $row["notifica_testo"];
-                    $response["notifica_link"] = $row["notifica_link"];
-                    $response["contatti_immagine"] = $row["contatti_immagine"];
-                    $response["contatti_titolo"] = $row["contatti_titolo"];
-                    $response["contatti_testo"] = $row["contatti_testo"];
-                    $response["numeri_utili_labels"] = $row["numeri_utili_labels"];
-                    $response["numeri_utili_colori"] = $row["numeri_utili_colori"];
-                    $response["numeri_utili_link"] = $row["numeri_utili_link"];
-                    $response["denuncia_immagine"] = $row["denuncia_immagine"];
-                    $response["denuncia_titolo"] = $row["denuncia_titolo"];
-                    $response["denuncia_testo"] = $row["denuncia_testo"];
-                    $response["denuncia_testo_grassetto"] = $row["denuncia_testo_grassetto"];
-                    $response["quick_telefono"] = $row["quick_telefono"];
-                    $response["quick_whatsapp"] = $row["quick_whatsapp"];
-                    $response["quick_email"] = $row["quick_email"];
-                    $response["attiva"] = $row["attiva"];
-                    //$response["token"] = $row["token"];
+                    $response["nome_app"] = mb_convert_encoding($row["nome_app"], 'UTF-8', 'UTF-8');
+                    $response["nome_agenzia"] = mb_convert_encoding($row["nome_agenzia"], 'UTF-8', 'UTF-8');
+                    $response["logo_agenzia"] = mb_convert_encoding($row["logo_agenzia"], 'UTF-8', 'UTF-8');
+                    $response["header_agenzia"] = mb_convert_encoding($row["header_agenzia"], 'UTF-8', 'UTF-8');
+                    $response["colori"] = mb_convert_encoding($row["colori"], 'UTF-8', 'UTF-8');
+                    $response["facebook_agenzia"] = mb_convert_encoding($row["facebook_agenzia"], 'UTF-8', 'UTF-8');
+                    $response["instagram_agenzia"] = mb_convert_encoding($row["instagram_agenzia"], 'UTF-8', 'UTF-8');
+                    $response["linkedin_agenzia"] = mb_convert_encoding($row["linkedin_agenzia"], 'UTF-8', 'UTF-8');
+                    $response["google_agenzia"] = mb_convert_encoding($row["google_agenzia"], 'UTF-8', 'UTF-8');
+                    $response["sito_agenzia"] = mb_convert_encoding($row["sito_agenzia"], 'UTF-8', 'UTF-8');
+                    $response["info_titolo"] = mb_convert_encoding($row["info_titolo"], 'UTF-8', 'UTF-8');
+                    $response["info_immagine"] = mb_convert_encoding($row["info_immagine"], 'UTF-8', 'UTF-8');
+                    $response["info_nomi_sedi"] = mb_convert_encoding($row["info_nomi_sedi"], 'UTF-8', 'UTF-8');
+                    $response["info_indirizzi_sedi"] = mb_convert_encoding($row["info_indirizzi_sedi"], 'UTF-8', 'UTF-8');
+                    $response["info_testo_orari"] = mb_convert_encoding($row["info_testo_orari"], 'UTF-8', 'UTF-8');
+                    $response["info_orari_sedi"] = mb_convert_encoding($row["info_orari_sedi"], 'UTF-8', 'UTF-8');
+                    $response["info_recensioni_sedi"] = mb_convert_encoding($row["info_recensioni_sedi"], 'UTF-8', 'UTF-8');
+                    $response["info_telefono_sedi"] = mb_convert_encoding($row["info_telefono_sedi"], 'UTF-8', 'UTF-8');
+                    $response["info_email_sedi"] = mb_convert_encoding($row["info_email_sedi"], 'UTF-8', 'UTF-8');
+                    $response["info_mappa_sedi"] = mb_convert_encoding($row["info_mappa_sedi"], 'UTF-8', 'UTF-8');
+                    $response["info_sito_sedi"] = mb_convert_encoding($row["info_sito_sedi"], 'UTF-8', 'UTF-8');
+                    $response["notifica_titolo"] = mb_convert_encoding($row["notifica_titolo"], 'UTF-8', 'UTF-8');
+                    $response["notifica_testo"] = mb_convert_encoding($row["notifica_testo"], 'UTF-8', 'UTF-8');
+                    $response["notifica_link"] = mb_convert_encoding($row["notifica_link"], 'UTF-8', 'UTF-8');
+                    $response["contatti_immagine"] = mb_convert_encoding($row["contatti_immagine"], 'UTF-8', 'UTF-8');
+                    $response["contatti_titolo"] = mb_convert_encoding($row["contatti_titolo"], 'UTF-8', 'UTF-8');
+                    //$response["contatti_testo"] = mb_convert_encoding($row["contatti_testo"], 'UTF-8', 'UTF-8');
+                    $response["numeri_utili_labels"] = mb_convert_encoding($row["numeri_utili_labels"], 'UTF-8', 'UTF-8');
+                    $response["numeri_utili_colori"] = mb_convert_encoding($row["numeri_utili_colori"], 'UTF-8', 'UTF-8');
+                    $response["numeri_utili_salute"] = mb_convert_encoding($row["numeri_utili_salute"], 'UTF-8', 'UTF-8');
+                    $response["numeri_utili_assistenza"] = mb_convert_encoding($row["numeri_utili_assistenza"], 'UTF-8', 'UTF-8');
+                    $response["numeri_utili_noleggio"] = mb_convert_encoding($row["numeri_utili_noleggio"], 'UTF-8', 'UTF-8');
+                    $response["denuncia_immagine"] = mb_convert_encoding($row["denuncia_immagine"], 'UTF-8', 'UTF-8');
+                    $response["denuncia_titolo"] = mb_convert_encoding($row["denuncia_titolo"], 'UTF-8', 'UTF-8');
+                    //$response["denuncia_testo"] = mb_convert_encoding($row["denuncia_testo"], 'UTF-8', 'UTF-8');
+                    $response["denuncia_testo_grassetto"] = mb_convert_encoding($row["denuncia_testo_grassetto"], 'UTF-8', 'UTF-8');
+                    $response["preventivo_immagine"] = mb_convert_encoding($row["preventivo_immagine"], 'UTF-8', 'UTF-8');
+                    $response["preventivo_testo_grassetto"] = mb_convert_encoding($row["preventivo_testo_grassetto"], 'UTF-8', 'UTF-8');
+                    $response["preventivo_titolo"] = mb_convert_encoding($row["preventivo_titolo"], 'UTF-8', 'UTF-8');
+                    $response["quick_telefono"] = mb_convert_encoding($row["quick_telefono"], 'UTF-8', 'UTF-8');
+                    $response["quick_whatsapp"] = mb_convert_encoding($row["quick_whatsapp"], 'UTF-8', 'UTF-8');
+                    $response["quick_email"] = mb_convert_encoding($row["quick_email"], 'UTF-8', 'UTF-8');
+                    $response["attiva"] = mb_convert_encoding($row["attiva"], 'UTF-8', 'UTF-8');
+                    $response["denuncia_mail"] = mb_convert_encoding($row["denuncia_mail"], 'UTF-8', 'UTF-8');
+                    //$response["token"] = mb_convert_encoding($row["token"], 'UTF-8', 'UTF-8');
                 }
             }
 
             $json_response = json_encode($response);
-            echo $json_response;
+            var_dump($json_response);
         } else {
             die("API Key not valid.");
         }
